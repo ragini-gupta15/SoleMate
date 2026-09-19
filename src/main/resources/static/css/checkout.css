@@ -1,0 +1,348 @@
+/* =========================================================
+   SOLEMATE CHECKOUT PAGE
+   ========================================================= */
+
+.checkout-page {
+    min-height: calc(100vh - 140px);
+    padding: 80px 24px;
+}
+
+.checkout-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.checkout-header {
+    margin-bottom: 50px;
+}
+
+.section-label {
+    display: block;
+    margin-bottom: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #c94b1c;
+}
+
+.checkout-header h1 {
+    margin: 0 0 14px;
+    font-size: clamp(42px, 6vw, 72px);
+    line-height: 0.95;
+    letter-spacing: -3px;
+}
+
+.checkout-header p {
+    margin: 0;
+    color: #666;
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   LAYOUT
+   ========================================================= */
+
+.checkout-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.8fr);
+    gap: 70px;
+    align-items: start;
+}
+
+
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.checkout-form-section h2,
+.order-summary h2 {
+    margin: 0 0 28px;
+    font-size: 24px;
+    letter-spacing: -0.5px;
+}
+
+.checkout-form-section {
+    min-width: 0;
+}
+
+#checkoutForm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 14px 15px;
+    border: 1px solid #d8d8d8;
+    border-radius: 8px;
+    background: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 110px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #111;
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.06);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #999;
+}
+
+
+/* =========================================================
+   PAYMENT
+   ========================================================= */
+
+.payment-section {
+    margin-top: 20px;
+}
+
+.payment-section h2 {
+    margin-bottom: 18px;
+}
+
+.payment-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 18px;
+    border: 1px solid #d8d8d8;
+    border-radius: 10px;
+    background: #fff;
+}
+
+.payment-option input {
+    margin-top: 3px;
+    accent-color: #111;
+}
+
+.payment-option label {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.payment-option label span {
+    color: #777;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   PLACE ORDER BUTTON
+   ========================================================= */
+
+.checkout-submit {
+    width: 100%;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   ORDER SUMMARY
+   ========================================================= */
+
+.order-summary {
+    position: sticky;
+    top: 30px;
+    padding: 30px;
+    border-radius: 14px;
+    background: #f4f4f1;
+}
+
+.summary-header {
+    margin-bottom: 28px;
+}
+
+.summary-header h2 {
+    margin-bottom: 0;
+}
+
+.checkout-items {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.checkout-item {
+    display: grid;
+    grid-template-columns: 70px 1fr auto;
+    gap: 14px;
+    align-items: center;
+}
+
+.checkout-item-image {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: #e7e7e4;
+}
+
+.checkout-item-image span {
+    font-size: 7px;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.checkout-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.checkout-item-info strong {
+    font-size: 13px;
+}
+
+.checkout-item-info span {
+    font-size: 11px;
+    color: #666;
+}
+
+.checkout-item-info small {
+    font-size: 10px;
+    color: #888;
+}
+
+.checkout-item > strong {
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   SUMMARY TOTALS
+   ========================================================= */
+
+.summary-divider {
+    height: 1px;
+    margin: 24px 0;
+    background: #d8d8d4;
+}
+
+.summary-row,
+.summary-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.summary-row {
+    margin-bottom: 14px;
+    font-size: 13px;
+}
+
+.summary-row strong {
+    font-size: 13px;
+}
+
+.summary-total {
+    font-size: 16px;
+}
+
+.summary-total strong {
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   EMPTY CART
+   ========================================================= */
+
+.checkout-empty {
+    padding: 25px 0;
+}
+
+.checkout-empty h3 {
+    margin: 0 0 10px;
+    font-size: 16px;
+}
+
+.checkout-empty a {
+    color: #111;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+    .checkout-layout {
+        grid-template-columns: 1fr;
+        gap: 45px;
+    }
+
+    .order-summary {
+        position: static;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .checkout-page {
+        padding: 50px 18px;
+    }
+
+    .checkout-header {
+        margin-bottom: 35px;
+    }
+
+    .checkout-header h1 {
+        letter-spacing: -2px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .order-summary {
+        padding: 22px;
+    }
+
+}

@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Track Order — SoleMate</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        body {
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background: #f7f7f5;
+            color: #111111;
+        }
+
+
+        /* =================================================
+           NAVIGATION
+           ================================================= */
+
+        .navbar {
+
+            height: 76px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 6%;
+
+            background: #ffffff;
+
+            border-bottom:
+                1px solid #e8e8e8;
+        }
+
+
+        .logo {
+
+            font-size: 22px;
+            font-weight: 800;
+
+            letter-spacing: -0.04em;
+
+            text-decoration: none;
+
+            color: #111111;
+        }
+
+
+        .nav-links {
+
+            display: flex;
+            gap: 28px;
+        }
+
+
+        .nav-links a {
+
+            text-decoration: none;
+
+            color: #555555;
+
+            font-size: 14px;
+        }
+
+
+        .nav-links a:hover {
+
+            color: #111111;
+        }
+
+
+        /* =================================================
+           MAIN
+           ================================================= */
+
+        .tracking-page {
+
+            max-width: 900px;
+
+            margin: 0 auto;
+
+            padding: 80px 24px;
+        }
+
+
+        .eyebrow {
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.12em;
+
+            color: #777777;
+
+            margin-bottom: 14px;
+        }
+
+
+        h1 {
+
+            font-size: clamp(
+                42px,
+                7vw,
+                72px
+            );
+
+            line-height: 0.95;
+
+            letter-spacing: -0.06em;
+
+            margin-bottom: 24px;
+        }
+
+
+        .intro {
+
+            color: #666666;
+
+            font-size: 17px;
+
+            max-width: 560px;
+
+            line-height: 1.6;
+
+            margin-bottom: 42px;
+        }
+
+
+        /* =================================================
+           SEARCH
+           ================================================= */
+
+        .tracking-search {
+
+            display: flex;
+
+            gap: 12px;
+
+            max-width: 600px;
+        }
+
+
+        .tracking-search input {
+
+            flex: 1;
+
+            height: 54px;
+
+            border:
+                1px solid #d8d8d8;
+
+            border-radius: 12px;
+
+            padding: 0 16px;
+
+            font-size: 15px;
+
+            background: #ffffff;
+        }
+
+
+        .tracking-search input:focus {
+
+            outline: none;
+
+            border-color: #111111;
+        }
+
+
+        .track-button {
+
+            height: 54px;
+
+            padding: 0 24px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #111111;
+
+            color: #ffffff;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+
+        .track-button:hover {
+
+            opacity: 0.88;
+        }
+
+
+        /* =================================================
+           ERROR
+           ================================================= */
+
+        .error-message {
+
+            margin-top: 18px;
+
+            color: #b42318;
+
+            font-size: 14px;
+
+            display: none;
+        }
+
+
+        /* =================================================
+           ORDER CARD
+           ================================================= */
+
+        .order-card {
+
+            margin-top: 56px;
+
+            background: #ffffff;
+
+            border:
+                1px solid #e7e7e7;
+
+            border-radius: 24px;
+
+            padding: 36px;
+
+            display: none;
+        }
+
+
+        .order-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 20px;
+
+            padding-bottom: 28px;
+
+            border-bottom:
+                1px solid #eeeeee;
+        }
+
+
+        .order-number {
+
+            font-size: 14px;
+
+            color: #777777;
+
+            margin-bottom: 8px;
+        }
+
+
+        .order-total {
+
+            font-size: 28px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.04em;
+        }
+
+
+        .order-status {
+
+            padding: 8px 12px;
+
+            border-radius: 999px;
+
+            background: #f1f1f1;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        /* =================================================
+           TIMELINE
+           ================================================= */
+
+        .timeline {
+
+            margin-top: 40px;
+        }
+
+
+        .timeline-step {
+
+            display: flex;
+
+            gap: 18px;
+
+            position: relative;
+
+            min-height: 72px;
+        }
+
+
+        .timeline-indicator {
+
+            width: 30px;
+
+            height: 30px;
+
+            border-radius: 50%;
+
+            border:
+                2px solid #d8d8d8;
+
+            background: #ffffff;
+
+            flex-shrink: 0;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .timeline-step.completed
+        .timeline-indicator {
+
+            background: #111111;
+
+            border-color: #111111;
+
+            color: #ffffff;
+        }
+
+
+        .timeline-line {
+
+            position: absolute;
+
+            left: 14px;
+
+            top: 30px;
+
+            width: 2px;
+
+            height: 42px;
+
+            background: #dedede;
+        }
+
+
+        .timeline-step.completed
+        .timeline-line {
+
+            background: #111111;
+        }
+
+
+        .timeline-content {
+
+            padding-top: 3px;
+        }
+
+
+        .timeline-title {
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            margin-bottom: 5px;
+        }
+
+
+        .timeline-description {
+
+            font-size: 13px;
+
+            color: #777777;
+        }
+
+
+        /* =================================================
+           RESPONSIVE
+           ================================================= */
+
+        @media (max-width: 600px) {
+
+            .navbar {
+
+                padding: 0 20px;
+            }
+
+
+            .nav-links {
+
+                gap: 14px;
+            }
+
+
+            .tracking-page {
+
+                padding:
+                    55px 18px;
+            }
+
+
+            .tracking-search {
+
+                flex-direction: column;
+            }
+
+
+            .track-button {
+
+                width: 100%;
+            }
+
+
+            .order-card {
+
+                padding: 24px;
+            }
+
+
+            .order-header {
+
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =================================================
+         NAVIGATION
+         ================================================= -->
+
+    <nav class="navbar">
+
+        <a
+            href="/"
+            class="logo"
+        >
+            SoleMate
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="/shop.html">
+                Shop
+            </a>
+
+            <a href="/cart.html">
+                Bag
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =================================================
+         MAIN TRACKING PAGE
+         ================================================= -->
+
+    <main class="tracking-page">
+
+        <div class="eyebrow">
+            ORDER TRACKING
+        </div>
+
+
+        <h1>
+            Where's your order?
+        </h1>
+
+
+        <p class="intro">
+            Enter your SoleMate order number to see
+            the latest delivery status.
+        </p>
+
+
+        <!-- SEARCH -->
+
+        <div class="tracking-search">
+
+            <input
+                type="number"
+                id="orderIdInput"
+                placeholder="Enter order number"
+                min="1"
+            >
+
+
+            <button
+                class="track-button"
+                onclick="trackOrder()"
+            >
+                Track Order
+            </button>
+
+        </div>
+
+
+        <div
+            class="error-message"
+            id="errorMessage"
+        >
+            We couldn't find that order.
+        </div>
+
+
+        <!-- =================================================
+             ORDER RESULT
+             ================================================= -->
+
+        <section
+            class="order-card"
+            id="orderCard"
+        >
+
+            <div class="order-header">
+
+                <div>
+
+                    <div
+                        class="order-number"
+                        id="orderNumber"
+                    >
+                    </div>
+
+                    <div
+                        class="order-total"
+                        id="orderTotal"
+                    >
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="order-status"
+                    id="orderStatus"
+                >
+                </div>
+
+            </div>
+
+
+            <!-- TIMELINE -->
+
+            <div
+                class="timeline"
+                id="timeline"
+            >
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script>
+
+        /* =================================================
+           ORDER STATUS FLOW
+           ================================================= */
+
+        const statuses = [
+
+            {
+                key: "PLACED",
+                title: "Order Placed",
+                description:
+                    "Your order has been received."
+            },
+
+            {
+                key: "CONFIRMED",
+                title: "Order Confirmed",
+                description:
+                    "Your order has been confirmed."
+            },
+
+            {
+                key: "PACKED",
+                title: "Packed",
+                description:
+                    "Your shoes have been packed."
+            },
+
+            {
+                key: "OUT_FOR_DELIVERY",
+                title: "Out for Delivery",
+                description:
+                    "Your order is on its way."
+            },
+
+            {
+                key: "DELIVERED",
+                title: "Delivered",
+                description:
+                    "Your order has been delivered."
+            }
+
+        ];
+
+
+        /* =================================================
+           TRACK ORDER
+           ================================================= */
+
+        async function trackOrder() {
+
+            const input =
+                document.getElementById(
+                    "orderIdInput"
+                );
+
+            const orderCard =
+                document.getElementById(
+                    "orderCard"
+                );
+
+            const errorMessage =
+                document.getElementById(
+                    "errorMessage"
+                );
+
+
+            const orderId =
+                input.value.trim();
+
+
+            if (!orderId) {
+
+                errorMessage.textContent =
+                    "Please enter an order number.";
+
+                errorMessage.style.display =
+                    "block";
+
+                orderCard.style.display =
+                    "none";
+
+                return;
+            }
+
+
+            try {
+
+                errorMessage.style.display =
+                    "none";
+
+
+                const response =
+                    await fetch(
+                        `/api/orders/${orderId}`
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Order not found"
+                    );
+                }
+
+
+                const order =
+                    await response.json();
+
+
+                displayOrder(order);
+
+
+            } catch (error) {
+
+                console.error(
+                    "Tracking error:",
+                    error
+                );
+
+
+                errorMessage.textContent =
+                    "We couldn't find that order.";
+
+                errorMessage.style.display =
+                    "block";
+
+                orderCard.style.display =
+                    "none";
+            }
+
+        }
+
+
+        /* =================================================
+           DISPLAY ORDER
+           ================================================= */
+
+        function displayOrder(order) {
+
+            const orderCard =
+                document.getElementById(
+                    "orderCard"
+                );
+
+
+            document.getElementById(
+                "orderNumber"
+            ).textContent =
+                `Order #${order.id}`;
+
+
+            document.getElementById(
+                "orderTotal"
+            ).textContent =
+                `₹${formatAmount(order.totalAmount)}`;
+
+
+            document.getElementById(
+                "orderStatus"
+            ).textContent =
+                formatStatus(order.status);
+
+
+            renderTimeline(
+                order.status
+            );
+
+
+            orderCard.style.display =
+                "block";
+        }
+
+
+        /* =================================================
+           TIMELINE
+           ================================================= */
+
+        function renderTimeline(currentStatus) {
+
+            const timeline =
+                document.getElementById(
+                    "timeline"
+                );
+
+
+            const currentIndex =
+                statuses.findIndex(
+                    status =>
+                        status.key === currentStatus
+                );
+
+
+            timeline.innerHTML =
+                statuses.map(
+                    (status, index) => {
+
+                        const completed =
+                            index <= currentIndex;
+
+
+                        return `
+                            <div
+                                class="timeline-step ${
+                                    completed
+                                        ? "completed"
+                                        : ""
+                                }"
+                            >
+
+                                <div
+                                    class="timeline-indicator"
+                                >
+                                    ${
+                                        completed
+                                            ? "✓"
+                                            : ""
+                                    }
+                                </div>
+
+
+                                ${
+                                    index <
+                                    statuses.length - 1
+                                        ? `
+                                            <div
+                                                class="timeline-line"
+                                            ></div>
+                                        `
+                                        : ""
+                                }
+
+
+                                <div
+                                    class="timeline-content"
+                                >
+
+                                    <div
+                                        class="timeline-title"
+                                    >
+                                        ${status.title}
+                                    </div>
+
+                                    <div
+                                        class="timeline-description"
+                                    >
+                                        ${status.description}
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        `;
+
+                    }
+                ).join("");
+        }
+
+
+        /* =================================================
+           FORMAT STATUS
+           ================================================= */
+
+        function formatStatus(status) {
+
+            if (!status) {
+                return "Unknown";
+            }
+
+
+            return status
+                .replaceAll("_", " ")
+                .toLowerCase()
+                .replace(
+                    /\b\w/g,
+                    letter =>
+                        letter.toUpperCase()
+                );
+        }
+
+
+        /* =================================================
+           FORMAT AMOUNT
+           ================================================= */
+
+        function formatAmount(amount) {
+
+            return Number(
+                amount || 0
+            ).toLocaleString(
+                "en-IN",
+                {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                }
+            );
+        }
+
+
+        /* =================================================
+           ENTER KEY SUPPORT
+           ================================================= */
+
+        document
+            .getElementById("orderIdInput")
+            .addEventListener(
+                "keydown",
+                event => {
+
+                    if (
+                        event.key === "Enter"
+                    ) {
+                        trackOrder();
+                    }
+
+                }
+            );
+            /* =================================================
+   LOAD ORDER FROM URL
+   ================================================= */
+
+const urlParams = new URLSearchParams(
+    window.location.search
+);
+
+const orderIdFromUrl =
+    urlParams.get("orderId");
+
+if (orderIdFromUrl) {
+
+    document.getElementById(
+        "orderIdInput"
+    ).value = orderIdFromUrl;
+
+    trackOrder();
+}
+
+    </script>
+
+</body>
+
+</html>

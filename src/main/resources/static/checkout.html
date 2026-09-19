@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout | SoleMate</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/checkout.css">
+
+</head>
+
+<body>
+
+    <!-- =====================================================
+         NAVIGATION
+         ===================================================== -->
+
+    <header class="navbar">
+
+    <div class="nav-container">
+
+        <a href="/" class="logo">
+
+            <span class="logo-mark">S</span>
+            <span>SoleMate</span>
+
+        </a>
+
+
+        <nav class="nav-links">
+
+            <a href="/">
+                Home
+            </a>
+
+            <a href="/shop.html">
+                Shop
+            </a>
+
+            <a href="/about.html">
+                About
+            </a>
+
+            <a href="/my-orders.html">
+                Orders
+            </a>
+
+            <a href="/checkout.html" class="active">
+                Checkout
+            </a>
+
+        </nav>
+
+
+        <button
+            class="cart-button"
+            onclick="window.location.href='/cart.html'"
+        >
+            Cart
+
+            <span
+                class="cart-count"
+                id="cartCount"
+            >
+                0
+            </span>
+
+        </button>
+
+    </div>
+
+</header>
+
+    <!-- =====================================================
+         CHECKOUT
+         ===================================================== -->
+
+    <main class="checkout-page">
+
+        <div class="checkout-container">
+
+            <div class="checkout-header">
+
+                <span class="section-label">
+                    SOLEMATE CHECKOUT
+                </span>
+
+                <h1>
+                    Complete your order.
+                </h1>
+
+                <p>
+                    Enter your details below to place your order.
+                </p>
+
+            </div>
+
+
+            <div class="checkout-layout">
+
+
+                <!-- =================================================
+                     CUSTOMER INFORMATION
+                     ================================================= -->
+
+                <section class="checkout-form-section">
+
+                    <h2>
+                        Delivery Information
+                    </h2>
+
+                    <form id="checkoutForm">
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="firstName">
+                                    First Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="firstName"
+                                    name="firstName"
+                                    placeholder="Enter your first name"
+                                    required>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="lastName">
+                                    Last Name
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="lastName"
+                                    name="lastName"
+                                    placeholder="Enter your last name"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email Address
+                            </label>
+
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="you@example.com"
+                                required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="phone">
+                                Phone Number
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                name="phone"
+                                placeholder="10-digit mobile number"
+                                pattern="[0-9]{10}"
+                                required>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="address">
+                                Delivery Address
+                            </label>
+
+                            <textarea
+                                id="address"
+                                name="address"
+                                rows="4"
+                                placeholder="House no., street, area"
+                                required></textarea>
+
+                        </div>
+
+
+                        <div class="form-row">
+
+                            <div class="form-group">
+
+                                <label for="city">
+                                    City
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="city"
+                                    name="city"
+                                    placeholder="City"
+                                    required>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="pincode">
+                                    PIN Code
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="pincode"
+                                    name="pincode"
+                                    placeholder="6-digit PIN"
+                                    pattern="[0-9]{6}"
+                                    required>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="payment-section">
+
+                            <h2>
+                                Payment Method
+                            </h2>
+
+                            <div class="payment-option">
+
+                                <input
+                                    type="radio"
+                                    id="cod"
+                                    name="payment"
+                                    value="COD"
+                                    checked>
+
+                                <label for="cod">
+
+                                    <strong>
+                                        Cash on Delivery
+                                    </strong>
+
+                                    <span>
+                                        Pay when your order arrives.
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="primary-button checkout-submit">
+
+                            Place Order
+
+                            <span>→</span>
+
+                        </button>
+
+                    </form>
+
+                </section>
+
+
+                <!-- =================================================
+                     ORDER SUMMARY
+                     ================================================= -->
+
+                <aside class="order-summary">
+
+                    <div class="summary-header">
+
+                        <span class="section-label">
+                            YOUR ORDER
+                        </span>
+
+                        <h2>
+                            Order Summary
+                        </h2>
+
+                    </div>
+
+
+                    <div id="checkoutItems"
+                         class="checkout-items">
+
+                    </div>
+
+
+                    <div class="summary-divider"></div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Subtotal
+                        </span>
+
+                        <strong id="checkoutSubtotal">
+                            ₹0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Delivery
+                        </span>
+
+                        <strong>
+                            Free
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-divider"></div>
+
+
+                    <div class="summary-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong id="checkoutTotal">
+                            ₹0
+                        </strong>
+
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div>
+
+                <strong>
+                    SoleMate
+                </strong>
+
+                <p>
+                    Modern footwear shopping, made simple.
+                </p>
+
+            </div>
+
+            <p>
+                © 2026 SoleMate
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        const API_URL = "/api/products";
+
+        let cart =
+            JSON.parse(
+                localStorage.getItem("solemateCart")
+            ) || [];
+
+        const checkoutItems =
+            document.getElementById("checkoutItems");
+
+        const checkoutSubtotal =
+            document.getElementById("checkoutSubtotal");
+
+        const checkoutTotal =
+            document.getElementById("checkoutTotal");
+
+        const cartCount =
+            document.getElementById("cartCount");
+            let checkoutProducts = [];
+
+
+        /* =====================================================
+           LOAD CART PRODUCTS
+           ===================================================== */
+
+        async function loadCheckout() {
+
+            if (cart.length === 0) {
+
+                checkoutItems.innerHTML = `
+                    <div class="checkout-empty">
+
+                        <h3>
+                            Your cart is empty.
+                        </h3>
+
+                        <a href="/">
+                            ← Continue Shopping
+                        </a>
+
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            try {
+
+                const response =
+                    await fetch(API_URL);
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Unable to load products"
+                    );
+
+                }
+
+                const products =
+                    await response.json();
+
+
+                const cartProducts =
+                    cart.map(cartItem => {
+
+                        const product =
+                            products.find(
+                                product =>
+                                    product.id === cartItem.id
+                            );
+
+                        if (!product) {
+                            return null;
+                        }
+
+                        return {
+                            ...product,
+                            quantity: cartItem.quantity
+                        };
+
+                    }).filter(Boolean);
+                    checkoutProducts = cartProducts;
+
+
+                displayCheckoutItems(cartProducts);
+
+            } catch (error) {
+
+                console.error(error);
+
+                checkoutItems.innerHTML = `
+                    <p>
+                        Unable to load your order.
+                    </p>
+                `;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           DISPLAY ORDER SUMMARY
+           ===================================================== */
+
+        function displayCheckoutItems(items) {
+
+            checkoutItems.innerHTML =
+                items.map(item => `
+
+                    <div class="checkout-item">
+
+                        <div class="checkout-item-image">
+
+                            <span>
+                                SOLEMATE
+                            </span>
+
+                        </div>
+
+                        <div class="checkout-item-info">
+
+                            <strong>
+                                ${escapeHTML(item.name)}
+                            </strong>
+
+                            <span>
+                                ${escapeHTML(item.brand)}
+                            </span>
+
+                            <small>
+                                Qty: ${item.quantity}
+                            </small>
+
+                        </div>
+
+                        <strong>
+
+                            ₹${(
+                                item.price *
+                                item.quantity
+                            ).toLocaleString("en-IN")}
+
+                        </strong>
+
+                    </div>
+
+                `).join("");
+
+
+            const total =
+                items.reduce(
+                    (sum, item) =>
+                        sum +
+                        (item.price * item.quantity),
+                    0
+                );
+
+
+            checkoutSubtotal.textContent =
+                `₹${total.toLocaleString("en-IN")}`;
+
+            checkoutTotal.textContent =
+                `₹${total.toLocaleString("en-IN")}`;
+
+
+            const totalItems =
+                items.reduce(
+                    (sum, item) =>
+                        sum + item.quantity,
+                    0
+                );
+
+            cartCount.textContent = totalItems;
+
+        }
+
+
+/* =====================================================
+   FORM SUBMISSION
+   ===================================================== */
+
+document
+    .getElementById("checkoutForm")
+    .addEventListener("submit", async function(event) {
+
+        event.preventDefault();
+
+
+        if (cart.length === 0) {
+
+            alert("Your cart is empty.");
+
+            return;
+
+        }
+
+
+        /*
+         * Create OrderItems from the products
+         * loaded from the database.
+         *
+         * We send the product ID and quantity.
+         * The backend will calculate the real price.
+         */
+
+        const items = checkoutProducts.map(product => ({
+
+            quantity: product.quantity,
+
+            product: {
+                id: product.id
+            }
+
+        }));
+
+            const order = {
+
+    firstName:
+    document.getElementById("firstName").value.trim(),
+
+    lastName:
+    document.getElementById("lastName").value.trim(),
+
+    email:
+    document.getElementById("email").value.trim(),
+
+    phone:
+    document.getElementById("phone").value.trim(),
+
+    address:
+    document.getElementById("address").value.trim(),
+
+    city:
+    document.getElementById("city").value.trim(),
+
+    pinCode:
+    document.getElementById("pincode").value.trim(),
+                totalAmount:
+cart.reduce(
+    (sum, item) =>
+        sum + (Number(item.price) * item.quantity),
+    0
+),
+
+    items:
+    cart.map(cartItem => ({
+
+        product: {
+            id: cartItem.id
+        },
+
+        quantity:
+            cartItem.quantity
+
+    }))
+
+};
+      
+
+
+        try {
+
+            const response =
+                await fetch("/api/orders", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(order)
+
+                });
+
+
+            if (!response.ok) {
+
+    const errorData =
+        await response.json().catch(
+            () => ({})
+        );
+
+    throw new Error(
+        errorData.error ||
+        "Unable to create order"
+    );
+
+}
+
+
+            const savedOrder =
+                await response.json();
+
+
+            /*
+             * Order and OrderItems have now
+             * been saved by Spring Boot.
+             */
+
+            localStorage.removeItem("solemateCart");
+
+
+            alert(
+                `Order placed successfully! Order ID: ${savedOrder.id}`
+            );
+
+
+            window.location.href =
+                `/order-success.html?id=${savedOrder.id}`;
+
+
+        } catch (error) {
+
+            console.error(
+                "Order creation error:",
+                error
+            );
+
+alert(
+    error.message ||
+    "Something went wrong while placing your order. Please try again."
+);
+        }
+
+    });
+
+        /* =====================================================
+           HTML ESCAPING
+           ===================================================== */
+
+        function escapeHTML(value) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent =
+                value ?? "";
+
+            return div.innerHTML;
+
+        }
+
+
+        /* =====================================================
+           START
+           ===================================================== */
+
+        loadCheckout();
+
+    </script>
+
+</body>
+
+</html>

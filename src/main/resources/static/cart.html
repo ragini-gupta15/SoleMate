@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Your Bag — SoleMate</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           CART PAGE
+           ===================================================== */
+
+        .cart-page {
+            width: min(1200px, calc(100% - 48px));
+            margin: 70px auto 120px;
+        }
+
+        .cart-page-header {
+            margin-bottom: 45px;
+        }
+
+        .cart-page-eyebrow {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            color: #777;
+        }
+
+        .cart-page-header h1 {
+            margin: 0;
+            font-size: clamp(42px, 7vw, 78px);
+            line-height: 0.95;
+            letter-spacing: -0.05em;
+        }
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 360px;
+            gap: 50px;
+            align-items: start;
+        }
+
+        /* Cart items */
+
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .cart-page-item {
+            display: grid;
+            grid-template-columns: 150px minmax(0, 1fr) auto;
+            gap: 24px;
+            align-items: center;
+            padding: 18px;
+            border: 1px solid #e6e6e2;
+            border-radius: 20px;
+            background: #fff;
+        }
+
+        .cart-page-image {
+            width: 150px;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            border-radius: 14px;
+            background: #f3f3f1;
+        }
+
+        .cart-page-image img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        .cart-page-info {
+            min-width: 0;
+        }
+
+        .cart-page-brand {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        .cart-page-name {
+            margin: 0 0 9px;
+            font-size: 22px;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .cart-page-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 18px;
+            margin-bottom: 18px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .cart-page-price {
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .cart-page-controls {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cart-quantity-button {
+            width: 34px;
+            height: 34px;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            background: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .cart-quantity-button:hover {
+            background: #f3f3f1;
+        }
+
+        .cart-quantity-value {
+            min-width: 24px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .cart-page-total {
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .cart-item-total {
+            display: block;
+            margin-bottom: 12px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .cart-remove-button {
+            border: none;
+            padding: 0;
+            background: transparent;
+            color: #888;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .cart-remove-button:hover {
+            color: #111;
+        }
+
+        /* Summary */
+
+        .cart-summary {
+            position: sticky;
+            top: 30px;
+            padding: 30px;
+            border-radius: 22px;
+            background: #f5f5f3;
+        }
+
+        .cart-summary h2 {
+            margin: 0 0 28px;
+            font-size: 24px;
+            letter-spacing: -0.03em;
+        }
+
+        .cart-summary-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .cart-summary-row.total {
+            margin-top: 24px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #111;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .checkout-button {
+            display: block;
+            width: 100%;
+            margin-top: 25px;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 999px;
+            background: #111;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        .checkout-button:hover {
+            opacity: 0.88;
+        }
+
+        .continue-shopping {
+            display: block;
+            margin-top: 16px;
+            color: #777;
+            text-align: center;
+            font-size: 12px;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        /* Empty state */
+
+        .cart-empty {
+            padding: 80px 30px;
+            border: 1px dashed #d5d5d1;
+            border-radius: 22px;
+            text-align: center;
+        }
+
+        .cart-empty h2 {
+            margin: 0 0 12px;
+            font-size: 32px;
+            letter-spacing: -0.03em;
+        }
+
+        .cart-empty p {
+            margin: 0 0 25px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .shop-button {
+            display: inline-block;
+            padding: 14px 24px;
+            border-radius: 999px;
+            background: #111;
+            color: #fff;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        /* Mobile */
+
+        @media (max-width: 850px) {
+
+            .cart-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .cart-summary {
+                position: static;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .cart-page {
+                width: min(100% - 28px, 1200px);
+                margin-top: 45px;
+            }
+
+            .cart-page-item {
+                grid-template-columns: 95px minmax(0, 1fr);
+                gap: 16px;
+            }
+
+            .cart-page-image {
+                width: 95px;
+            }
+
+            .cart-page-total {
+                grid-column: 2;
+                min-width: 0;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+        /* =====================================================
+   CART PAGE NAVBAR FIX
+   ===================================================== */
+
+.cart-navbar {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: nowrap !important;
+    gap: 30px;
+}
+
+.cart-navbar .logo {
+    flex: 0 0 auto;
+}
+
+.cart-navbar .nav-links {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 36px;
+}
+
+.cart-navbar .cart-button {
+    flex: 0 0 auto !important;
+    width: auto !important;
+    min-width: 84px;
+    white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+
+    .cart-navbar {
+        gap: 12px;
+    }
+
+    .cart-navbar .nav-links {
+        gap: 14px;
+    }
+
+    .cart-navbar .nav-links .nav-link {
+        font-size: 12px;
+    }
+
+}
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         NAVBAR
+         ===================================================== -->
+
+    <header class="navbar cart-navbar">
+
+        <a
+            href="/"
+            class="logo"
+        >
+            <span class="logo-mark">S</span>
+            <span>SoleMate</span>
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="/" class="nav-link">
+                Home
+            </a>
+
+            <a href="/shop.html" class="nav-link">
+                Shop
+            </a>
+
+            <a href="/" class="nav-link">
+                About
+            </a>
+
+        </nav>
+
+        <a
+            href="/cart.html"
+            class="cart-button"
+        >
+            Bag
+            <span
+                class="cart-count"
+                id="cartCount">
+                0
+            </span>
+        </a>
+
+    </header>
+
+
+    <!-- =====================================================
+         CART PAGE
+         ===================================================== -->
+
+    <main class="cart-page">
+
+        <div class="cart-page-header">
+
+            <span class="cart-page-eyebrow">
+                YOUR BAG
+            </span>
+
+            <h1>
+                Your picks.
+            </h1>
+
+        </div>
+
+
+        <div id="cartContent"></div>
+
+    </main>
+
+
+    <script>
+
+        /* =====================================================
+           CART DATA
+           ===================================================== */
+
+        let cart = JSON.parse(
+            localStorage.getItem("solemateCart") || "[]"
+        );
+
+
+        /* =====================================================
+           SAVE CART
+           ===================================================== */
+
+        function saveCart() {
+
+            localStorage.setItem(
+                "solemateCart",
+                JSON.stringify(cart)
+            );
+
+        }
+
+
+        /* =====================================================
+           UPDATE CART COUNT
+           ===================================================== */
+
+        function updateCartCount() {
+
+            const count =
+                cart.reduce(
+                    (total, item) =>
+                        total + Number(item.quantity || 0),
+                    0
+                );
+
+            const cartCount =
+                document.getElementById("cartCount");
+
+            if (cartCount) {
+                cartCount.textContent = count;
+            }
+
+        }
+
+
+        /* =====================================================
+           ESCAPE HTML
+           ===================================================== */
+
+        function escapeHTML(value) {
+
+            return String(value ?? "")
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* =====================================================
+           FORMAT PRICE
+           ===================================================== */
+
+        function formatPrice(price) {
+
+            return `₹${Number(price || 0).toLocaleString("en-IN")}`;
+
+        }
+
+
+        /* =====================================================
+           CHANGE QUANTITY
+           ===================================================== */
+
+        function changeCartQuantity(
+            productId,
+            size,
+            change
+        ) {
+
+            const item =
+                cart.find(product =>
+                    Number(product.id) === Number(productId) &&
+                    (product.size || "") === (size || "")
+                );
+
+            if (!item) {
+                return;
+            }
+
+            const newQuantity =
+                Number(item.quantity || 0) + change;
+
+            const stock =
+                Number(item.stock ?? 999);
+
+            if (newQuantity > stock) {
+
+                alert(
+                    `Only ${stock} items are currently available.`
+                );
+
+                return;
+            }
+
+            if (newQuantity <= 0) {
+
+                removeCartItem(
+                    productId,
+                    size
+                );
+
+                return;
+            }
+
+            item.quantity = newQuantity;
+
+            saveCart();
+            renderCart();
+
+        }
+
+
+        /* =====================================================
+           REMOVE ITEM
+           ===================================================== */
+
+        function removeCartItem(
+            productId,
+            size
+        ) {
+
+            cart =
+                cart.filter(item =>
+                    !(
+                        Number(item.id) === Number(productId) &&
+                        (item.size || "") === (size || "")
+                    )
+                );
+
+            saveCart();
+            renderCart();
+
+        }
+
+
+        /* =====================================================
+           RENDER CART
+           ===================================================== */
+
+        function renderCart() {
+
+            const cartContent =
+                document.getElementById("cartContent");
+
+            updateCartCount();
+
+            if (!cart.length) {
+
+                cartContent.innerHTML = `
+
+                    <div class="cart-empty">
+
+                        <h2>
+                            Your bag is empty.
+                        </h2>
+
+                        <p>
+                            Find a pair that belongs with you.
+                        </p>
+
+                        <a
+                            href="/shop.html"
+                            class="shop-button"
+                        >
+                            Explore Shoes
+                        </a>
+
+                    </div>
+
+                `;
+
+                return;
+            }
+
+
+            let subtotal = 0;
+            let totalItems = 0;
+
+
+            const itemsHTML =
+                cart.map(item => {
+
+                    const quantity =
+                        Number(item.quantity || 0);
+
+                    const price =
+                        Number(item.price || 0);
+
+                    const itemTotal =
+                        price * quantity;
+
+                    subtotal += itemTotal;
+                    totalItems += quantity;
+
+                    const image =
+                        item.imageUrl || "";
+
+                    const size =
+                        item.size || "Not selected";
+
+                    return `
+
+                        <article
+                            class="cart-page-item"
+                        >
+
+                            <div class="cart-page-image">
+
+                                ${
+                                    image
+                                        ? `
+                                            <img
+                                                src="${escapeHTML(image)}"
+                                                alt="${escapeHTML(item.brand || "")} ${escapeHTML(item.name || "")}"
+                                                onerror="this.style.display='none'"
+                                            >
+                                        `
+                                        : ""
+                                }
+
+                            </div>
+
+
+                            <div class="cart-page-info">
+
+                                <span class="cart-page-brand">
+                                    ${escapeHTML(item.brand || "")}
+                                </span>
+
+                                <h2 class="cart-page-name">
+                                    ${escapeHTML(item.name || "Product")}
+                                </h2>
+
+                                <div class="cart-page-meta">
+
+                                    <span>
+                                        Size: ${escapeHTML(size)}
+                                    </span>
+
+                                    <span>
+                                        ${escapeHTML(item.color || "")}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="cart-page-controls">
+
+                                    <button
+                                        class="cart-quantity-button"
+                                        onclick="changeCartQuantity(
+                                            ${Number(item.id)},
+                                            '${encodeURIComponent(size)}',
+                                            -1
+                                        )"
+                                    >
+                                        −
+                                    </button>
+
+                                    <span class="cart-quantity-value">
+                                        ${quantity}
+                                    </span>
+
+                                    <button
+                                        class="cart-quantity-button"
+                                        onclick="changeCartQuantity(
+                                            ${Number(item.id)},
+                                            '${encodeURIComponent(size)}',
+                                            1
+                                        )"
+                                    >
+                                        +
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="cart-page-total">
+
+                                <span class="cart-item-total">
+                                    ${formatPrice(itemTotal)}
+                                </span>
+
+                                <button
+                                    class="cart-remove-button"
+                                    onclick="removeCartItem(
+                                        ${Number(item.id)},
+                                        '${encodeURIComponent(size)}'
+                                    )"
+                                >
+                                    Remove
+                                </button>
+
+                            </div>
+
+                        </article>
+
+                    `;
+
+                }).join("");
+
+
+            cartContent.innerHTML = `
+
+                <div class="cart-layout">
+
+                    <section class="cart-items">
+
+                        ${itemsHTML}
+
+                    </section>
+
+
+                    <aside class="cart-summary">
+
+                        <h2>
+                            Order summary
+                        </h2>
+
+                        <div class="cart-summary-row">
+
+                            <span>
+                                Items
+                            </span>
+
+                            <span>
+                                ${totalItems}
+                            </span>
+
+                        </div>
+
+                        <div class="cart-summary-row">
+
+                            <span>
+                                Subtotal
+                            </span>
+
+                            <span>
+                                ${formatPrice(subtotal)}
+                            </span>
+
+                        </div>
+
+                        <div class="cart-summary-row">
+
+                            <span>
+                                Delivery
+                            </span>
+
+                            <span>
+                                FREE
+                            </span>
+
+                        </div>
+
+                        <div class="cart-summary-row total">
+
+                            <span>
+                                Total
+                            </span>
+
+                            <span>
+                                ${formatPrice(subtotal)}
+                            </span>
+
+                        </div>
+
+                        <a
+                            href="/checkout.html"
+                            class="checkout-button"
+                        >
+                            Proceed to Checkout
+                        </a>
+
+                        <a
+                            href="/shop.html"
+                            class="continue-shopping"
+                        >
+                            Continue Shopping
+                        </a>
+
+                    </aside>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =====================================================
+           INITIALIZE
+           ===================================================== */
+
+        renderCart();
+
+    </script>
+
+</body>
+
+</html>

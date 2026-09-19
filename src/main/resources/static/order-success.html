@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Order Confirmed | SoleMate</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           ORDER SUCCESS PAGE
+           ===================================================== */
+
+        .success-page {
+
+            min-height: 75vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 80px 20px;
+
+        }
+
+
+        .success-card {
+
+            width: 100%;
+
+            max-width: 620px;
+
+            text-align: center;
+
+            padding: 60px 40px;
+
+            background: #ffffff;
+
+            border: 1px solid #e8e8e8;
+
+            border-radius: 24px;
+
+            box-shadow:
+                0 20px 60px rgba(0, 0, 0, 0.08);
+
+        }
+
+
+        .success-icon {
+
+            width: 76px;
+
+            height: 76px;
+
+            margin: 0 auto 28px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #111111;
+
+            color: #ffffff;
+
+            font-size: 34px;
+
+            font-weight: 600;
+
+        }
+
+
+        .success-label {
+
+            margin-bottom: 12px;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            color: #888888;
+
+        }
+
+
+        .success-card h1 {
+
+            margin: 0 0 16px;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: clamp(38px, 6vw, 58px);
+
+            line-height: 1.05;
+
+            color: #111111;
+
+        }
+
+
+        .success-message {
+
+            max-width: 460px;
+
+            margin: 0 auto 32px;
+
+            color: #666666;
+
+            font-size: 16px;
+
+            line-height: 1.7;
+
+        }
+
+
+        .order-details {
+
+            margin: 30px 0;
+
+            padding: 22px;
+
+            border-radius: 16px;
+
+            background: #f7f7f7;
+
+        }
+
+
+        .order-detail-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            padding: 10px 0;
+
+            font-size: 15px;
+
+        }
+
+
+        .order-detail-row span {
+
+            color: #777777;
+
+        }
+
+
+        .order-detail-row strong {
+
+            color: #111111;
+
+        }
+
+
+        .order-actions {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 12px;
+
+            margin-top: 30px;
+
+        }
+
+
+        .success-button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            padding: 14px 24px;
+
+            border-radius: 999px;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease;
+
+        }
+
+
+        .success-button:hover {
+
+            transform: translateY(-2px);
+
+            opacity: 0.9;
+
+        }
+
+
+        .success-button.primary {
+
+            background: #111111;
+
+            color: #ffffff;
+
+        }
+
+
+        .success-button.secondary {
+
+            background: #eeeeee;
+
+            color: #111111;
+
+        }
+
+
+        .loading-message {
+
+            color: #777777;
+
+            font-size: 15px;
+
+        }
+
+
+        .error-message {
+
+            color: #b42318;
+
+            font-size: 15px;
+
+            line-height: 1.6;
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .success-page {
+
+                padding: 50px 16px;
+
+            }
+
+
+            .success-card {
+
+                padding: 45px 22px;
+
+            }
+
+
+            .order-actions {
+
+                flex-direction: column;
+
+            }
+
+
+            .success-button {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="site-header">
+
+        <div class="container header-inner">
+
+            <a
+                href="/"
+                class="brand"
+            >
+
+                <span class="brand-mark">
+                    S
+                </span>
+
+                <span>
+                    SoleMate
+                </span>
+
+            </a>
+
+
+            <a
+                href="/"
+                class="header-link"
+            >
+                Continue Shopping
+            </a>
+
+        </div>
+
+    </header>
+
+
+
+    <!-- =====================================================
+         SUCCESS CONTENT
+         ===================================================== -->
+
+    <main class="success-page">
+
+        <section class="success-card">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+
+            <div class="success-label">
+                SoleMate Order
+            </div>
+
+
+            <h1>
+                Order Confirmed
+            </h1>
+
+
+            <p class="success-message">
+
+                Thank you for shopping with SoleMate.
+                Your order has been placed successfully
+                and is now being processed.
+
+            </p>
+
+
+            <!-- Dynamic order information -->
+
+            <div
+                id="orderDetails"
+                class="order-details"
+            >
+
+                <p class="loading-message">
+                    Loading order details...
+                </p>
+
+            </div>
+
+
+            <div class="order-actions">
+
+                <a
+                    href="/shop.html"
+                    class="success-button primary"
+                >
+                    Continue Shopping
+                    <span>→</span>
+                </a>
+                <a
+    href="/my-orders.html"
+    class="success-button secondary"
+>
+    My Orders
+</a>
+
+                <a
+                    href="/"
+                    class="success-button secondary"
+                >
+                    Back to Home
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="site-footer">
+
+        <div class="container footer-inner">
+
+            <div>
+
+                <strong>
+                    SoleMate
+                </strong>
+
+                <p>
+                    Modern footwear shopping, made simple.
+                </p>
+
+            </div>
+
+
+            <span>
+                © 2026 SoleMate
+            </span>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        /* =====================================================
+           GET ORDER ID FROM URL
+           Example:
+           /order-success.html?id=2
+           ===================================================== */
+
+        const params =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const orderId =
+            params.get("id");
+
+
+        const orderDetails =
+            document.getElementById(
+                "orderDetails"
+            );
+
+
+        /* =====================================================
+           VALIDATE ORDER ID
+           ===================================================== */
+
+        if (!orderId) {
+
+            orderDetails.innerHTML = `
+
+                <p class="error-message">
+
+                    We could not find your order ID.
+
+                </p>
+
+            `;
+
+        } else {
+
+            loadOrder(orderId);
+
+        }
+
+
+        /* =====================================================
+           LOAD ORDER FROM BACKEND
+           ===================================================== */
+
+        async function loadOrder(id) {
+
+            try {
+
+                const response =
+                    await fetch(
+                        `/api/orders/${id}`
+                    );
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        "Order not found"
+                    );
+
+                }
+
+
+                const order =
+                    await response.json();
+
+
+                displayOrder(order);
+
+
+            } catch (error) {
+
+                console.error(
+                    "Unable to load order:",
+                    error
+                );
+
+
+                orderDetails.innerHTML = `
+
+                    <p class="error-message">
+
+                        We couldn't load your order details.
+                        Your order may still have been placed
+                        successfully.
+
+                    </p>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           DISPLAY ORDER
+           ===================================================== */
+
+        function displayOrder(order) {
+
+            const total =
+                Number(order.totalAmount || 0);
+
+
+            orderDetails.innerHTML = `
+
+                <div class="order-detail-row">
+
+                    <span>
+                        Order ID
+                    </span>
+
+                    <strong>
+                        #${order.id}
+                    </strong>
+
+                </div>
+
+
+                <div class="order-detail-row">
+
+                    <span>
+                        Customer
+                    </span>
+
+                    <strong>
+                        ${escapeHTML(
+                            order.firstName
+                        )}
+                        ${escapeHTML(
+                            order.lastName
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="order-detail-row">
+
+                    <span>
+                        Status
+                    </span>
+
+                    <strong>
+                        ${escapeHTML(
+                            order.status
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="order-detail-row">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong>
+                        ₹${total.toLocaleString("en-IN")}
+                    </strong>
+
+                </div>
+
+            `;
+
+        }
+
+
+        /* =====================================================
+           HTML ESCAPING
+           ===================================================== */
+
+        function escapeHTML(value) {
+
+            const div =
+                document.createElement("div");
+
+
+            div.textContent =
+                value ?? "";
+
+
+            return div.innerHTML;
+
+        }
+
+    </script>
+
+</body>
+
+</html>

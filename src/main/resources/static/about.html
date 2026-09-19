@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>About — SoleMate</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/style.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           ABOUT PAGE
+           ===================================================== */
+
+        .about-page {
+            width: min(1400px, calc(100% - 48px));
+            margin: 55px auto 100px;
+        }
+
+        .about-hero {
+            min-height: 520px;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 70px;
+            align-items: center;
+            padding: 70px 0;
+        }
+
+        .about-eyebrow {
+            display: block;
+            margin-bottom: 18px;
+            color: #777;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+        }
+
+        .about-hero h1 {
+            max-width: 850px;
+            margin: 0;
+            font-size: clamp(48px, 7vw, 92px);
+            line-height: 0.94;
+            letter-spacing: -0.055em;
+        }
+
+        .about-hero h1 span {
+            color: #777;
+        }
+
+        .about-hero-text {
+            max-width: 470px;
+            color: #666;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .about-hero-text p {
+            margin: 0 0 22px;
+        }
+
+        .about-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 22px;
+            border-radius: 999px;
+            background: #111;
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 700;
+            transition: transform 0.2s ease,
+                        opacity 0.2s ease;
+        }
+
+        .about-button:hover {
+            transform: translateY(-2px);
+            opacity: 0.88;
+        }
+
+
+        /* =====================================================
+           BRAND STATEMENT
+           ===================================================== */
+
+        .about-statement {
+            padding: 90px 0;
+            border-top: 1px solid #e5e5e2;
+            border-bottom: 1px solid #e5e5e2;
+        }
+
+        .about-statement-label {
+            margin-bottom: 25px;
+            color: #777;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+        }
+
+        .about-statement h2 {
+            max-width: 1050px;
+            margin: 0;
+            font-size: clamp(34px, 5vw, 64px);
+            line-height: 1.05;
+            letter-spacing: -0.045em;
+        }
+
+
+        /* =====================================================
+           VALUES
+           ===================================================== */
+
+        .about-values {
+            padding: 90px 0;
+        }
+
+        .about-section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 30px;
+            margin-bottom: 35px;
+        }
+
+        .about-section-heading h2 {
+            margin: 0;
+            font-size: 36px;
+            letter-spacing: -0.04em;
+        }
+
+        .about-section-heading p {
+            max-width: 380px;
+            margin: 0;
+            color: #777;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        .about-values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .about-value-card {
+            min-height: 250px;
+            padding: 28px;
+            border-radius: 22px;
+            background: #f5f5f3;
+        }
+
+        .about-value-number {
+            display: block;
+            margin-bottom: 70px;
+            color: #888;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+        }
+
+        .about-value-card h3 {
+            margin: 0 0 12px;
+            font-size: 21px;
+            letter-spacing: -0.03em;
+        }
+
+        .about-value-card p {
+            max-width: 320px;
+            margin: 0;
+            color: #777;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+
+        /* =====================================================
+           SHOP CTA
+           ===================================================== */
+
+        .about-cta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 35px;
+            padding: 55px;
+            border-radius: 28px;
+            background: #111;
+            color: #fff;
+        }
+
+        .about-cta-eyebrow {
+            display: block;
+            margin-bottom: 12px;
+            color: #aaa;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+        }
+
+        .about-cta h2 {
+            margin: 0;
+            font-size: clamp(30px, 4vw, 48px);
+            line-height: 1;
+            letter-spacing: -0.045em;
+        }
+
+        .about-cta .about-button {
+            flex-shrink: 0;
+            background: #fff;
+            color: #111;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .about-hero {
+                grid-template-columns: 1fr;
+                gap: 35px;
+                padding: 45px 0 70px;
+            }
+
+            .about-values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .about-value-card {
+                min-height: auto;
+            }
+
+            .about-value-number {
+                margin-bottom: 45px;
+            }
+
+            .about-cta {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 38px;
+            }
+
+        }
+
+
+        @media (max-width: 700px) {
+
+            .about-page {
+                width: min(100% - 28px, 1400px);
+                margin-top: 30px;
+            }
+
+            .about-section-heading {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .about-statement,
+            .about-values {
+                padding: 65px 0;
+            }
+
+            .about-cta {
+                padding: 30px;
+                border-radius: 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="announcement">
+    <span>NEW SEASON / NEW ENERGY</span>
+    <span class="announcement-divider"></span>
+    <span>CURATED SNEAKERS. SIMPLE SHOPPING.</span>
+</div>
+
+<header class="navbar">
+    <div class="nav-container">
+
+        <a href="/" class="logo" aria-label="SoleMate home">
+            <span class="logo-mark">S</span>
+            <span class="logo-text">SoleMate</span>
+        </a>
+
+        <nav class="nav-links" aria-label="Primary navigation">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/shop.html" class="nav-link">Shop</a>
+            <a href="/my-orders.html" class="nav-link">Orders</a>
+            <a href="/about.html" class="nav-link active">About</a>
+        </nav>
+
+        <div class="nav-actions">
+            <button class="icon-button" aria-label="Search">
+                <span>⌕</span>
+            </button>
+
+            <a href="/cart.html" class="cart-button">
+                <span>Bag</span>
+                <span class="cart-count" id="cartCount">0</span>
+            </a>
+        </div>
+
+    </div>
+</header>
+
+        <button
+            class="cart-button"
+            onclick="window.location.href='/cart.html'"
+        >
+            Cart
+            <span class="cart-count" id="cartCount">0</span>
+        </button>
+
+    </header>
+
+
+    <main class="about-page">
+
+        <!-- =================================================
+             HERO
+             ================================================= -->
+
+        <section class="about-hero">
+
+            <div>
+
+                <span class="about-eyebrow">
+                    ABOUT SOLEMATE
+                </span>
+
+                <h1>
+                    The right pair
+                    <span>changes everything.</span>
+                </h1>
+
+            </div>
+
+
+            <div class="about-hero-text">
+
+                <p>
+                    SoleMate is a modern footwear marketplace
+                    built around one simple idea: finding the
+                    right pair should feel effortless.
+                </p>
+
+                <p>
+                    From everyday sneakers to performance-ready
+                    footwear, we bring products, product
+                    discovery and order tracking together in
+                    one simple shopping experience.
+                </p>
+
+                <a
+                    href="/shop.html"
+                    class="about-button"
+                >
+                    Explore the Collection
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             STATEMENT
+             ================================================= -->
+
+        <section class="about-statement">
+
+            <div class="about-statement-label">
+                OUR APPROACH
+            </div>
+
+            <h2>
+                Less noise. Better products.
+                A shopping experience designed
+                around the pair you actually want.
+            </h2>
+
+        </section>
+
+
+        <!-- =================================================
+             VALUES
+             ================================================= -->
+
+        <section class="about-values">
+
+            <div class="about-section-heading">
+
+                <div>
+
+                    <span class="about-eyebrow">
+                        WHAT WE CARE ABOUT
+                    </span>
+
+                    <h2>
+                        Built around the essentials.
+                    </h2>
+
+                </div>
+
+                <p>
+                    Every part of SoleMate is designed to keep
+                    product discovery simple while giving
+                    customers the information they need before
+                    placing an order.
+                </p>
+
+            </div>
+
+
+            <div class="about-values-grid">
+
+                <article class="about-value-card">
+
+                    <span class="about-value-number">
+                        01
+                    </span>
+
+                    <h3>
+                        Product first.
+                    </h3>
+
+                    <p>
+                        Clear product information, multiple
+                        images, available sizes, pricing and
+                        descriptions help customers make
+                        informed choices.
+                    </p>
+
+                </article>
+
+
+                <article class="about-value-card">
+
+                    <span class="about-value-number">
+                        02
+                    </span>
+
+                    <h3>
+                        Simple by design.
+                    </h3>
+
+                    <p>
+                        From browsing to checkout, the experience
+                        is designed to remove unnecessary steps
+                        and keep the focus on finding the right
+                        footwear.
+                    </p>
+
+                </article>
+
+
+                <article class="about-value-card">
+
+                    <span class="about-value-number">
+                        03
+                    </span>
+
+                    <h3>
+                        Built to deliver.
+                    </h3>
+
+                    <p>
+                        Inventory management, order processing and
+                        delivery tracking connect the customer
+                        experience with the systems behind the
+                        store.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CTA
+             ================================================= -->
+
+        <section class="about-cta">
+
+            <div>
+
+                <span class="about-cta-eyebrow">
+                    FIND YOUR NEXT PAIR
+                </span>
+
+                <h2>
+                    Your next pair is waiting.
+                </h2>
+
+            </div>
+
+            <a
+                href="/shop.html"
+                class="about-button"
+            >
+                Shop SoleMate
+            </a>
+
+        </section>
+
+    </main>
+    <script src="/js/app.js"></script>
+
+
+</body>
+
+</html>

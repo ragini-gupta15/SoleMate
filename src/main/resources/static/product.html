@@ -1,0 +1,2375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Product | SoleMate</title>
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        /* =====================================================
+           PRODUCT PAGE
+           ===================================================== */
+
+        .product-details-page {
+            min-height: calc(100vh - 150px);
+            padding: 70px 20px 100px;
+            background: #f8f8f6;
+        }
+
+        .product-details-container {
+            width: min(1180px, 100%);
+            margin: 0 auto;
+
+            display: grid;
+            grid-template-columns: 1.08fr 0.92fr;
+            gap: 70px;
+
+            align-items: start;
+        }
+
+
+        /* =====================================================
+           PRODUCT GALLERY
+           ===================================================== */
+
+        .product-gallery {
+            position: sticky;
+            top: 30px;
+        }
+
+        .product-main-image {
+            width: 100%;
+            height: 560px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eeeeeb;
+            border-radius: 26px;
+
+            overflow: hidden;
+            position: relative;
+
+            cursor: zoom-in;
+        }
+
+        .product-main-image img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+
+            transition:
+                transform 0.45s ease,
+                opacity 0.25s ease;
+        }
+
+        .product-main-image:hover img {
+            transform: scale(1.055);
+        }
+
+        .gallery-arrow {
+            position: absolute;
+
+            top: 50%;
+            transform: translateY(-50%);
+
+            width: 42px;
+            height: 42px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: rgba(255, 255, 255, 0.92);
+
+            color: #111;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
+
+            cursor: pointer;
+
+            z-index: 5;
+
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .gallery-arrow:hover {
+            background: #111;
+            color: #fff;
+        }
+
+        .gallery-arrow.left {
+            left: 18px;
+        }
+
+        .gallery-arrow.right {
+            right: 18px;
+        }
+
+        .gallery-counter {
+            position: absolute;
+
+            right: 18px;
+            bottom: 18px;
+
+            padding: 7px 11px;
+
+            border-radius: 20px;
+
+            background: rgba(17, 17, 17, 0.75);
+            color: #fff;
+
+            font-size: 11px;
+            letter-spacing: 0.5px;
+
+            z-index: 5;
+        }
+
+        .product-gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+
+            gap: 12px;
+
+            margin-top: 14px;
+        }
+
+        .gallery-thumbnail {
+            height: 105px;
+
+            padding: 0;
+
+            border: 1px solid #deded9;
+            border-radius: 14px;
+
+            background: #eeeeeb;
+
+            overflow: hidden;
+
+            cursor: pointer;
+
+            transition:
+                border-color 0.2s ease,
+                transform 0.2s ease;
+        }
+
+        .gallery-thumbnail:hover {
+            transform: translateY(-2px);
+        }
+
+        .gallery-thumbnail.active {
+            border: 2px solid #111;
+        }
+
+        .gallery-thumbnail img {
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+        }
+
+        .product-image-fallback {
+            width: 100%;
+            height: 100%;
+
+            min-height: 500px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #eeeeeb;
+
+            color: #777;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            letter-spacing: 3px;
+        }
+
+
+        /* =====================================================
+           PRODUCT INFORMATION
+           ===================================================== */
+
+        .product-details-info {
+            padding: 10px 0;
+        }
+
+        .product-details-info .product-brand {
+            margin-bottom: 13px;
+
+            font-size: 12px;
+            font-weight: 600;
+
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            color: #777;
+        }
+
+        .product-details-info h1 {
+            margin: 0 0 18px;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: clamp(42px, 5vw, 66px);
+            line-height: 0.98;
+
+            letter-spacing: -2px;
+
+            color: #111;
+        }
+
+        .product-details-price {
+            margin-bottom: 24px;
+
+            font-size: 25px;
+            font-weight: 600;
+
+            color: #111;
+        }
+
+
+        /* =====================================================
+           RATING PREVIEW
+           ===================================================== */
+
+        .product-rating-preview {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            margin-bottom: 28px;
+
+            font-size: 13px;
+        }
+
+        .rating-stars {
+            letter-spacing: 2px;
+            color: #111;
+        }
+
+        .rating-count {
+            color: #777;
+        }
+
+
+        /* =====================================================
+           PRODUCT META
+           ===================================================== */
+
+        .product-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .product-meta-item {
+            padding: 15px 0;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 6px;
+        }
+
+        .product-meta-item:nth-child(odd) {
+            padding-right: 20px;
+        }
+
+        .product-meta-item:nth-child(even) {
+            padding-left: 20px;
+
+            border-left: 1px solid #ddd;
+        }
+
+        .product-meta-item span {
+            color: #777;
+
+            font-size: 11px;
+
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-meta-item strong {
+            color: #111;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           SIZE SELECTOR
+           ===================================================== */
+
+        .size-section {
+            margin-top: 28px;
+        }
+
+        .section-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            margin-bottom: 12px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            color: #111;
+        }
+
+        .size-guide {
+            color: #777;
+
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        .size-options {
+            display: flex;
+            flex-wrap: wrap;
+
+            gap: 9px;
+        }
+
+        .size-button {
+            min-width: 50px;
+            height: 44px;
+
+            padding: 0 14px;
+
+            border: 1px solid #d8d8d3;
+            border-radius: 7px;
+
+            background: #fff;
+
+            color: #111;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                background 0.2s ease,
+                color 0.2s ease,
+                border-color 0.2s ease;
+        }
+
+        .size-button:hover {
+            border-color: #111;
+        }
+
+        .size-button.selected {
+            background: #111;
+            border-color: #111;
+
+            color: #fff;
+        }
+
+
+        /* =====================================================
+           QUANTITY
+           ===================================================== */
+
+        .quantity-section {
+            margin-top: 24px;
+        }
+
+        .quantity-control {
+            width: 132px;
+            height: 44px;
+
+            display: flex;
+            align-items: center;
+
+            border: 1px solid #d8d8d3;
+            border-radius: 7px;
+
+            background: #fff;
+        }
+
+        .quantity-control button {
+            width: 42px;
+            height: 100%;
+
+            border: none;
+            background: transparent;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            color: #111;
+        }
+
+        .quantity-control span {
+            flex: 1;
+
+            text-align: center;
+
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+
+        /* =====================================================
+           DELIVERY / RETURNS
+           ===================================================== */
+
+        .service-info {
+            margin-top: 26px;
+
+            border-top: 1px solid #ddd;
+        }
+
+        .service-item {
+            display: flex;
+            align-items: flex-start;
+
+            gap: 13px;
+
+            padding: 15px 0;
+
+            border-bottom: 1px solid #e1e1dd;
+        }
+
+        .service-icon {
+            width: 28px;
+            height: 28px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: #eeeeeb;
+
+            font-size: 13px;
+        }
+
+        .service-item strong {
+            display: block;
+
+            margin-bottom: 3px;
+
+            font-size: 13px;
+        }
+
+        .service-item span {
+            color: #777;
+
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+
+        /* =====================================================
+           DESCRIPTION
+           ===================================================== */
+
+        .product-description {
+            margin: 28px 0 25px;
+
+            max-width: 550px;
+
+            font-size: 15px;
+            line-height: 1.8;
+
+            color: #666;
+        }
+
+
+        /* =====================================================
+           ADD TO CART
+           ===================================================== */
+
+        .add-to-cart-details {
+            width: 100%;
+
+            padding: 17px 24px;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #111;
+            color: #fff;
+
+            font-family: inherit;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease;
+        }
+
+        .add-to-cart-details:hover:not(:disabled) {
+            background: #f4511e;
+
+            transform: translateY(-2px);
+        }
+
+        .add-to-cart-details:disabled {
+            background: #aaa;
+            cursor: not-allowed;
+        }
+
+        .back-to-shop {
+            display: inline-block;
+
+            margin-top: 22px;
+
+            color: #555;
+
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .back-to-shop:hover {
+            color: #f4511e;
+        }
+
+
+        /* =====================================================
+           LOADING / ERROR
+           ===================================================== */
+
+        .product-loading,
+        .product-error {
+            width: min(1180px, 100%);
+            margin: 0 auto;
+
+            min-height: 500px;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+            justify-content: center;
+
+            text-align: center;
+        }
+
+        .product-loading {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .product-error h2 {
+            margin-bottom: 20px;
+
+            font-family: Georgia, "Times New Roman", serif;
+
+            font-size: 36px;
+        }
+
+        .product-error a {
+            color: #111;
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .product-details-container {
+                grid-template-columns: 1fr;
+
+                gap: 45px;
+            }
+
+            .product-gallery {
+                position: static;
+            }
+
+            .product-main-image {
+                height: 500px;
+            }
+        }
+
+
+        @media (max-width: 600px) {
+
+            .product-details-page {
+                padding: 35px 16px 70px;
+            }
+
+            .product-main-image {
+                height: 380px;
+
+                border-radius: 18px;
+            }
+
+            .product-gallery-thumbnails {
+                gap: 7px;
+            }
+
+            .gallery-thumbnail {
+                height: 70px;
+
+                border-radius: 9px;
+            }
+
+            .product-details-info h1 {
+                font-size: 44px;
+
+                letter-spacing: -1px;
+            }
+
+            .product-details-price {
+                font-size: 21px;
+            }
+
+            .product-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .product-meta-item:nth-child(even) {
+                padding-left: 0;
+
+                border-left: none;
+                border-top: 1px solid #ddd;
+            }
+
+            .product-meta-item:nth-child(odd) {
+                padding-right: 0;
+            }
+
+            .gallery-arrow {
+                width: 36px;
+                height: 36px;
+
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         NAVIGATION
+         ===================================================== -->
+
+    <header class="navbar">
+
+        <div class="nav-container">
+
+            <a href="/" class="logo">
+                <span class="logo-mark">S</span>
+                <span>SoleMate</span>
+            </a>
+
+            <nav class="nav-links">
+                <a href="/">Home</a>
+                <a href="/" class="active">Shop</a>
+                <a href="/about.html">About</a>
+                <a href="/my-orders.html">
+    Orders
+</a>
+            </nav>
+            <a
+            href="/cart.html"
+            class="cart-button"
+        >
+            Bag
+
+            <span
+                class="cart-count"
+                id="cartCount"
+            >
+                0
+            </span>
+        </a>
+            
+   
+    
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         PRODUCT DETAILS
+         ===================================================== -->
+
+    <main class="product-details-page">
+
+        <div id="productDetails">
+
+            <div class="product-loading">
+                Loading product...
+            </div>
+
+        </div>
+
+    </main>
+    <!-- =====================================================
+     CUSTOMER REVIEWS
+     ===================================================== -->
+
+<section class="reviews-section">
+
+    <div class="reviews-header">
+
+        <div>
+            <span class="section-eyebrow">
+                CUSTOMER REVIEWS
+            </span>
+
+            <h2>
+                What people are saying.
+            </h2>
+        </div>
+
+        <div class="reviews-summary">
+
+            <div class="reviews-average" id="reviewsAverage">
+                0.0
+            </div>
+
+            <div class="reviews-stars" id="reviewsStars">
+                ☆☆☆☆☆
+            </div>
+
+            <span id="reviewsCount">
+                0 reviews
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- Review Form -->
+
+    <div class="review-form-card">
+
+        <h3>
+            Share your experience
+        </h3>
+
+        <form id="reviewForm">
+
+            <div class="review-form-row">
+
+                <div class="review-field">
+
+                    <label for="reviewName">
+                        Your name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="reviewName"
+                        placeholder="Enter your name"
+                        maxlength="50"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="review-field">
+
+                    <label>
+                        Your rating
+                    </label>
+
+                    <div
+                        class="rating-selector"
+                        id="ratingSelector">
+
+                        <button
+                            type="button"
+                            class="rating-star"
+                            data-rating="1">
+                            ☆
+                        </button>
+
+                        <button
+                            type="button"
+                            class="rating-star"
+                            data-rating="2">
+                            ☆
+                        </button>
+
+                        <button
+                            type="button"
+                            class="rating-star"
+                            data-rating="3">
+                            ☆
+                        </button>
+
+                        <button
+                            type="button"
+                            class="rating-star"
+                            data-rating="4">
+                            ☆
+                        </button>
+
+                        <button
+                            type="button"
+                            class="rating-star"
+                            data-rating="5">
+                            ☆
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="review-field">
+
+                <label for="reviewComment">
+                    Your review
+                </label>
+
+                <textarea
+                    id="reviewComment"
+                    rows="5"
+                    maxlength="500"
+                    placeholder="Tell us what you think about this pair..."
+                    required></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="review-submit-button">
+
+                Submit Review
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- Existing reviews will appear here -->
+
+    <div
+        class="reviews-list"
+        id="reviewsList">
+
+        <p class="reviews-empty">
+            No reviews yet. Be the first to review this pair.
+        </p>
+
+    </div>
+
+</section>
+    <!-- =====================================================
+     SIMILAR PRODUCTS
+     ===================================================== -->
+
+<section class="similar-products-section">
+
+    <div class="similar-products-header">
+
+        <span class="section-eyebrow">
+            YOU MIGHT ALSO LIKE
+        </span>
+
+        <h2>
+            More pairs to explore.
+        </h2>
+
+    </div>
+
+    <div
+        class="similar-products-grid"
+        id="similarProductsGrid">
+
+        <!-- Similar products will be loaded by JavaScript -->
+
+    </div>
+
+</section>
+
+
+    <!-- =====================================================
+         FOOTER
+         ===================================================== -->
+
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div>
+                <strong>SoleMate</strong>
+
+                <p>
+                    Modern footwear shopping, made simple.
+                </p>
+            </div>
+
+            <p>
+                © 2026 SoleMate
+            </p>
+
+        </div>
+
+    </footer>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        const API_URL = "/api/products";
+
+        const productDetails =
+            document.getElementById("productDetails");
+
+
+        /* =====================================================
+           PRODUCT STATE
+           ===================================================== */
+
+        let currentProduct = null;
+
+        let galleryImages = [];
+
+        let currentImageIndex = 0;
+
+        let selectedSize = null;
+
+        let selectedQuantity = 1;
+
+
+        /* =====================================================
+           GET PRODUCT ID
+           ===================================================== */
+
+        const urlParams =
+            new URLSearchParams(window.location.search);
+
+        const productId =
+            urlParams.get("id");
+
+
+        /* =====================================================
+           LOAD PRODUCT
+           ===================================================== */
+
+        async function loadProduct() {
+
+            if (!productId) {
+
+                showError("Product not found.");
+
+                return;
+            }
+
+            try {
+
+                const response =
+                    await fetch(`${API_URL}/${productId}`);
+
+                if (!response.ok) {
+
+                    throw new Error("Product not found");
+                }
+
+                const product =
+                    await response.json();
+
+                currentProduct = product;
+
+                buildGallery(product);
+
+                displayProduct(product);
+                loadSimilarProducts(product);
+                loadReviews(product.id);
+
+            } catch (error) {
+
+                console.error(
+                    "Product loading error:",
+                    error
+                );
+
+                showError(
+                    "Unable to load this product."
+                );
+            }
+        }
+
+
+        /* =====================================================
+           BUILD GALLERY
+           ===================================================== */
+
+        function buildGallery(product) {
+
+            galleryImages = [
+                product.imageUrl,
+                product.imageUrl2,
+                product.imageUrl3,
+                product.imageUrl4,
+                product.imageUrl5
+            ].filter(
+                url =>
+                    typeof url === "string" &&
+                    url.trim() !== ""
+            );
+
+            currentImageIndex = 0;
+        }
+        
+        /* =====================================================
+   SIMILAR PRODUCTS
+   ===================================================== */
+
+async function loadSimilarProducts(currentProduct) {
+
+    const similarProductsGrid =
+        document.getElementById("similarProductsGrid");
+
+    if (!similarProductsGrid) {
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error("Unable to load similar products");
+        }
+
+        const products =
+            await response.json();
+
+        const similarProducts =
+            products
+                .filter(product =>
+                    product.id !== currentProduct.id &&
+                    product.category === currentProduct.category
+                )
+                .slice(0, 4);
+
+        if (similarProducts.length === 0) {
+
+            similarProductsGrid.innerHTML = `
+                <p class="similar-products-empty">
+                    More pairs coming soon.
+                </p>
+            `;
+
+            return;
+        }
+
+        similarProductsGrid.innerHTML =
+            similarProducts
+                .map(product => createSimilarProductCard(product))
+                .join("");
+
+    } catch (error) {
+
+        console.error(
+            "Similar products error:",
+            error
+        );
+
+        similarProductsGrid.innerHTML = "";
+    }
+}
+
+
+/* =====================================================
+   SIMILAR PRODUCT CARD
+   ===================================================== */
+
+function createSimilarProductCard(product) {
+
+    const image =
+        product.imageUrl || "";
+
+    return `
+        <article
+            class="similar-product-card"
+            onclick="window.location.href='/product.html?id=${product.id}'"
+        >
+
+            <div class="similar-product-image">
+
+                ${
+                    image
+                        ? `
+                            <img
+                                src="${escapeHTML(image)}"
+                                alt="${escapeHTML(product.brand)} ${escapeHTML(product.name)}"
+                                loading="lazy"
+                                onerror="this.style.display='none'"
+                            >
+                        `
+                        : `
+                            <div class="similar-image-fallback">
+                                IMAGE UNAVAILABLE
+                            </div>
+                        `
+                }
+
+            </div>
+
+            <div class="similar-product-info">
+
+                <span class="similar-product-brand">
+                    ${escapeHTML(product.brand)}
+                </span>
+
+                <h3>
+                    ${escapeHTML(product.name)}
+                </h3>
+
+                <strong>
+                    ₹${Number(product.price).toLocaleString("en-IN")}
+                </strong>
+
+            </div>
+
+        </article>
+    `;
+}
+        
+
+        /* =====================================================
+           DISPLAY PRODUCT
+           ===================================================== */
+
+        function displayProduct(product) {
+
+            const description =
+                product.description ||
+                "A carefully selected SoleMate pair designed for everyday movement, comfort and style.";
+
+            const color =
+                product.color || "Not specified";
+
+            const sizes =
+                product.availableSizes || "";
+
+            const stock =
+                product.stock ?? 0;
+
+            const sizeList =
+                sizes
+                    .split(",")
+                    .map(size => size.trim())
+                    .filter(Boolean);
+
+
+            productDetails.innerHTML = `
+
+                <div class="product-details-container">
+
+                    <!-- =================================================
+                         PRODUCT GALLERY
+                         ================================================= -->
+
+                    <div class="product-gallery">
+
+                        <div class="product-main-image">
+
+                            ${
+                                galleryImages.length > 0
+                                    ? `
+                                        <img
+                                            id="mainProductImage"
+                                            src="${escapeHTML(galleryImages[0])}"
+                                            alt="${escapeHTML(product.brand)} ${escapeHTML(product.name)}"
+                                            onerror="handleMainImageError(this)"
+                                        >
+                                    `
+                                    : `
+                                        <div class="product-image-fallback">
+                                            IMAGE UNAVAILABLE
+                                        </div>
+                                    `
+                            }
+
+
+                            ${
+                                galleryImages.length > 1
+                                    ? `
+                                        <button
+                                            class="gallery-arrow left"
+                                            onclick="previousImage()"
+                                            aria-label="Previous image">
+                                            ‹
+                                        </button>
+
+                                        <button
+                                            class="gallery-arrow right"
+                                            onclick="nextImage()"
+                                            aria-label="Next image">
+                                            ›
+                                        </button>
+
+                                        <div
+                                            class="gallery-counter"
+                                            id="galleryCounter">
+                                            1 / ${galleryImages.length}
+                                        </div>
+                                    `
+                                    : ""
+                            }
+
+                        </div>
+
+
+                        ${
+                            galleryImages.length > 1
+                                ? `
+                                    <div
+                                        class="product-gallery-thumbnails"
+                                        id="galleryThumbnails">
+                                    </div>
+                                `
+                                : ""
+                        }
+
+                    </div>
+
+
+                    <!-- =================================================
+                         PRODUCT INFORMATION
+                         ================================================= -->
+
+                    <div class="product-details-info">
+
+                        <div class="product-brand">
+                            ${escapeHTML(product.brand)}
+                        </div>
+
+
+                        <h1>
+                            ${escapeHTML(product.name)}
+                        </h1>
+
+
+                        <div class="product-details-price">
+                            ₹${Number(product.price).toLocaleString("en-IN")}
+                        </div>
+
+
+                        <!-- RATING PREVIEW -->
+
+                        <div class="product-rating-preview">
+
+                            <span class="rating-stars">
+                                ★★★★★
+                            </span>
+
+                            <span class="rating-count">
+                                4.6 · 128 Reviews
+                            </span>
+
+                        </div>
+
+
+                        <!-- PRODUCT META -->
+
+                        <div class="product-meta">
+
+                            <div class="product-meta-item">
+
+                                <span>
+                                    Category
+                                </span>
+
+                                <strong>
+                                    ${escapeHTML(product.category || "Not specified")}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="product-meta-item">
+
+                                <span>
+                                    Colour
+                                </span>
+
+                                <strong>
+                                    ${escapeHTML(color)}
+                                </strong>
+
+                            </div>
+
+
+                            <div class="product-meta-item">
+
+                                <span>
+                                    Stock
+                                </span>
+
+                                <strong>
+                                    ${
+                                        stock > 0
+                                            ? `${stock} pairs available`
+                                            : "Out of stock"
+                                    }
+                                </strong>
+
+                            </div>
+
+
+                            <div class="product-meta-item">
+
+                                <span>
+                                    Availability
+                                </span>
+
+                                <strong>
+                                    ${
+                                        stock > 0
+                                            ? "In Stock"
+                                            : "Currently unavailable"
+                                    }
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SIZE SELECTOR -->
+
+                        ${
+                            sizeList.length > 0
+                                ? `
+                                    <div class="size-section">
+
+                                        <div class="section-label">
+
+                                            <span>
+                                                Select Size
+                                            </span>
+
+                                            <span class="size-guide">
+                                                UK / India
+                                            </span>
+
+                                        </div>
+
+                                        <div
+                                            class="size-options"
+                                            id="sizeOptions">
+
+                                            ${sizeList.map(size => `
+                                                <button
+                                                    type="button"
+                                                    class="size-button"
+                                                    data-size="${escapeHTML(size)}"
+                                                    onclick="selectSize('${escapeJS(size)}', this)">
+                                                    ${escapeHTML(size)}
+                                                </button>
+                                            `).join("")}
+
+                                        </div>
+
+                                    </div>
+                                `
+                                : ""
+                        }
+
+
+                        <!-- QUANTITY -->
+
+                        ${
+                            stock > 0
+                                ? `
+                                    <div class="quantity-section">
+
+                                        <div class="section-label">
+                                            <span>Quantity</span>
+                                        </div>
+
+                                        <div class="quantity-control">
+
+                                            <button
+                                                type="button"
+                                                onclick="changeQuantity(-1)">
+                                                −
+                                            </button>
+
+                                            <span id="quantityValue">
+                                                1
+                                            </span>
+
+                                            <button
+                                                type="button"
+                                                onclick="changeQuantity(1)">
+                                                +
+                                            </button>
+
+                                        </div>
+
+                                    </div>
+                                `
+                                : ""
+                        }
+
+
+                        <!-- DELIVERY / RETURN / EXCHANGE -->
+
+                        <div class="service-info">
+
+                            <div class="service-item">
+
+                                <div class="service-icon">
+                                    🚚
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Free Delivery
+                                    </strong>
+
+                                    <span>
+                                        Estimated delivery within 3–5 business days.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="service-item">
+
+                                <div class="service-icon">
+                                    ↩
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        7-Day Returns
+                                    </strong>
+
+                                    <span>
+                                        Return eligible products within 7 days of delivery.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="service-item">
+
+                                <div class="service-icon">
+                                    ↻
+                                </div>
+
+                                <div>
+
+                                    <strong>
+                                        Easy Size Exchange
+                                    </strong>
+
+                                    <span>
+                                        Exchange for another available size, subject to stock.
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <p class="product-description">
+                            ${escapeHTML(description)}
+                        </p>
+
+
+                        <!-- ADD TO CART -->
+
+                        <button
+                            class="add-to-cart-details"
+                            onclick="addToCart()"
+                            ${stock <= 0 ? "disabled" : ""}>
+
+                            ${
+                                stock > 0
+                                    ? "Add to Cart"
+                                    : "Out of Stock"
+                            }
+
+                        </button>
+
+
+                        <a
+                            href="/"
+                            class="back-to-shop">
+
+                            ← Back to Shop
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            `;
+
+
+            renderThumbnails();
+
+            updateGalleryImage();
+        }
+
+
+        /* =====================================================
+           RENDER THUMBNAILS
+           ===================================================== */
+
+        function renderThumbnails() {
+
+            const container =
+                document.getElementById(
+                    "galleryThumbnails"
+                );
+
+            if (!container) {
+                return;
+            }
+
+            container.innerHTML =
+                galleryImages.map(
+                    (image, index) => `
+
+                        <button
+                            type="button"
+                            class="gallery-thumbnail ${
+                                index === 0
+                                    ? "active"
+                                    : ""
+                            }"
+                            onclick="selectImage(${index})">
+
+                            <img
+                                src="${escapeHTML(image)}"
+                                alt="Product view ${index + 1}"
+                                onerror="this.parentElement.style.display='none'"
+                            >
+
+                        </button>
+
+                    `
+                ).join("");
+        }
+
+
+        /* =====================================================
+           SELECT IMAGE
+           ===================================================== */
+
+        function selectImage(index) {
+
+            if (
+                index < 0 ||
+                index >= galleryImages.length
+            ) {
+                return;
+            }
+
+            currentImageIndex = index;
+
+            updateGalleryImage();
+        }
+
+
+        /* =====================================================
+           UPDATE MAIN IMAGE
+           ===================================================== */
+
+        function updateGalleryImage() {
+
+            const image =
+                document.getElementById(
+                    "mainProductImage"
+                );
+
+            if (!image) {
+                return;
+            }
+
+            image.style.opacity = "0.35";
+
+            setTimeout(() => {
+
+                image.src =
+                    galleryImages[currentImageIndex];
+
+                image.style.opacity = "1";
+
+            }, 120);
+
+
+            const counter =
+                document.getElementById(
+                    "galleryCounter"
+                );
+
+            if (counter) {
+
+                counter.textContent =
+                    `${currentImageIndex + 1} / ${galleryImages.length}`;
+            }
+
+
+            document
+                .querySelectorAll(
+                    ".gallery-thumbnail"
+                )
+                .forEach(
+                    (thumbnail, index) => {
+
+                        thumbnail.classList.toggle(
+                            "active",
+                            index === currentImageIndex
+                        );
+                    }
+                );
+        }
+
+
+        /* =====================================================
+           PREVIOUS IMAGE
+           ===================================================== */
+
+        function previousImage() {
+
+            if (galleryImages.length <= 1) {
+                return;
+            }
+
+            currentImageIndex =
+                (
+                    currentImageIndex -
+                    1 +
+                    galleryImages.length
+                ) %
+                galleryImages.length;
+
+            updateGalleryImage();
+        }
+
+
+        /* =====================================================
+           NEXT IMAGE
+           ===================================================== */
+
+        function nextImage() {
+
+            if (galleryImages.length <= 1) {
+                return;
+            }
+
+            currentImageIndex =
+                (
+                    currentImageIndex +
+                    1
+                ) %
+                galleryImages.length;
+
+            updateGalleryImage();
+        }
+
+
+        /* =====================================================
+           KEYBOARD GALLERY NAVIGATION
+           ===================================================== */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (event.key === "ArrowLeft") {
+                    previousImage();
+                }
+
+                if (event.key === "ArrowRight") {
+                    nextImage();
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           SIZE SELECTION
+           ===================================================== */
+
+        function selectSize(size, button) {
+
+            selectedSize = size;
+
+            document
+                .querySelectorAll(".size-button")
+                .forEach(
+                    element => {
+                        element.classList.remove(
+                            "selected"
+                        );
+                    }
+                );
+
+            button.classList.add("selected");
+        }
+
+
+        /* =====================================================
+           QUANTITY
+           ===================================================== */
+
+        function changeQuantity(change) {
+
+            if (!currentProduct) {
+                return;
+            }
+
+            const stock =
+                currentProduct.stock ?? 0;
+
+            selectedQuantity += change;
+
+            if (selectedQuantity < 1) {
+                selectedQuantity = 1;
+            }
+
+            if (selectedQuantity > stock) {
+                selectedQuantity = stock;
+            }
+
+            const quantityValue =
+                document.getElementById(
+                    "quantityValue"
+                );
+
+            if (quantityValue) {
+                quantityValue.textContent =
+                    selectedQuantity;
+            }
+        }
+
+
+        /* =====================================================
+           ADD TO CART
+           ===================================================== */
+
+        function addToCart() {
+
+            if (!currentProduct) {
+                return;
+            }
+
+
+            const availableSizes =
+                currentProduct.availableSizes;
+
+
+            if (
+                availableSizes &&
+                availableSizes.trim() !== "" &&
+                !selectedSize
+            ) {
+
+                alert(
+                    "Please select a size before adding the product to cart."
+                );
+
+                return;
+            }
+
+
+            const stock =
+                currentProduct.stock ?? 0;
+
+
+            if (
+                stock <= 0 ||
+                selectedQuantity <= 0
+            ) {
+
+                alert(
+                    "This product is currently out of stock."
+                );
+
+                return;
+            }
+
+
+            let cart =
+                JSON.parse(
+                    localStorage.getItem(
+                        "solemateCart"
+                    )
+                ) || [];
+
+
+            const existingProduct =
+                cart.find(
+                    item =>
+                        item.id === currentProduct.id &&
+                        item.size === selectedSize
+                );
+
+
+            if (existingProduct) {
+
+                const newQuantity =
+                    existingProduct.quantity +
+                    selectedQuantity;
+
+
+                if (newQuantity > stock) {
+
+                    alert(
+                        `Only ${stock} pairs are available.`
+                    );
+
+                    return;
+                }
+
+
+                existingProduct.quantity =
+                    newQuantity;
+
+                /*
+                 * Refresh product information in case an older
+                 * cart entry was created with incomplete data.
+                 */
+                existingProduct.name =
+                    currentProduct.name;
+
+                existingProduct.brand =
+                    currentProduct.brand;
+
+                existingProduct.price =
+                    Number(currentProduct.price);
+
+                existingProduct.category =
+                    currentProduct.category;
+
+                existingProduct.color =
+                    currentProduct.color;
+
+                existingProduct.stock =
+                    currentProduct.stock;
+
+                existingProduct.imageUrl =
+                    currentProduct.imageUrl;
+
+            } else {
+
+                cart.push({
+
+                    id: currentProduct.id,
+
+                    name: currentProduct.name,
+
+                    brand: currentProduct.brand,
+
+                    price:
+                        Number(currentProduct.price),
+
+                    category: currentProduct.category,
+
+                    color: currentProduct.color,
+
+                    stock: currentProduct.stock,
+
+                    quantity: selectedQuantity,
+
+                    size: selectedSize,
+
+                    imageUrl:
+                        currentProduct.imageUrl
+
+                });
+            }
+
+
+            localStorage.setItem(
+                "solemateCart",
+                JSON.stringify(cart)
+            );
+
+
+            updateCartCount();
+
+
+            alert(
+                `${currentProduct.name} added to cart.`
+            );
+        }
+
+
+        /* =====================================================
+           UPDATE CART COUNT
+           ===================================================== */
+
+        function updateCartCount() {
+
+            const cart =
+                JSON.parse(
+                    localStorage.getItem(
+                        "solemateCart"
+                    )
+                ) || [];
+
+
+            const totalItems =
+                cart.reduce(
+                    (total, item) =>
+                        total +
+                        item.quantity,
+                    0
+                );
+
+
+            const cartCount =
+                document.querySelector(
+                    ".cart-count"
+                );
+
+
+            if (cartCount) {
+
+                cartCount.textContent =
+                    totalItems;
+            }
+        }
+
+
+        /* =====================================================
+           IMAGE ERROR HANDLING
+           ===================================================== */
+
+        function handleMainImageError(image) {
+
+            image.style.display = "none";
+
+            const parent =
+                image.parentElement;
+
+            const fallback =
+                document.createElement("div");
+
+            fallback.className =
+                "product-image-fallback";
+
+            fallback.textContent =
+                "IMAGE UNAVAILABLE";
+
+            parent.appendChild(fallback);
+        }
+
+
+        /* =====================================================
+           ERROR
+           ===================================================== */
+
+        function showError(message) {
+
+            productDetails.innerHTML = `
+
+                <div class="product-error">
+
+                    <h2>
+                        ${escapeHTML(message)}
+                    </h2>
+
+                    <a href="/">
+                        ← Return to Shop
+                    </a>
+
+                </div>
+
+            `;
+        }
+
+
+        /* =====================================================
+           HTML ESCAPING
+           ===================================================== */
+
+        function escapeHTML(value) {
+
+            const div =
+                document.createElement("div");
+
+            div.textContent =
+                value ?? "";
+
+            return div.innerHTML;
+        }
+
+
+        /* =====================================================
+           JAVASCRIPT STRING ESCAPING
+           ===================================================== */
+
+        function escapeJS(value) {
+
+            return String(value)
+                .replace(/\\/g, "\\\\")
+                .replace(/'/g, "\\'")
+                .replace(/"/g, '\\"')
+                .replace(/\n/g, "\\n")
+                .replace(/\r/g, "\\r");
+        }
+
+
+        /* =====================================================
+           START
+           ===================================================== */
+
+        loadProduct();
+
+        updateCartCount();
+        /* =====================================================
+   REVIEW RATING SELECTOR
+   ===================================================== */
+
+let selectedRating = 0;
+
+const ratingStars =
+    document.querySelectorAll(".rating-star");
+
+ratingStars.forEach(star => {
+
+    star.addEventListener("click", () => {
+
+        selectedRating =
+            Number(star.dataset.rating);
+
+        ratingStars.forEach(item => {
+
+            const rating =
+                Number(item.dataset.rating);
+
+            item.textContent =
+                rating <= selectedRating
+                    ? "★"
+                    : "☆";
+
+            item.classList.toggle(
+                "active",
+                rating <= selectedRating
+            );
+
+        });
+
+    });
+
+});
+/* =====================================================
+   SUBMIT REVIEW
+   ===================================================== */
+
+const reviewForm =
+    document.getElementById("reviewForm");
+
+if (reviewForm) {
+
+    reviewForm.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        if (!currentProduct) {
+            alert("Product information is not available.");
+            return;
+        }
+
+        const customerName =
+            document.getElementById("reviewName").value.trim();
+
+        const comment =
+            document.getElementById("reviewComment").value.trim();
+
+        if (!customerName) {
+            alert("Please enter your name.");
+            return;
+        }
+
+        if (selectedRating === 0) {
+            alert("Please select a rating.");
+            return;
+        }
+
+        if (!comment) {
+            alert("Please write a review.");
+            return;
+        }
+
+        try {
+
+            const response = await fetch("/api/reviews", {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify({
+                    productId: currentProduct.id,
+                    customerName: customerName,
+                    rating: selectedRating,
+                    comment: comment
+                })
+
+            });
+
+            if (!response.ok) {
+                throw new Error("Unable to submit review.");
+            }
+
+            alert("Review submitted successfully!");
+
+            reviewForm.reset();
+
+            selectedRating = 0;
+
+            ratingStars.forEach(star => {
+                star.textContent = "☆";
+                star.classList.remove("active");
+            });
+            await loadReviews(currentProduct.id);
+
+        } catch (error) {
+
+            console.error("Review submission error:", error);
+
+            alert("Unable to submit review. Please try again.");
+        }
+
+    });
+
+}
+/* =====================================================
+   LOAD REVIEWS
+   ===================================================== */
+
+async function loadReviews(productId) {
+
+    const reviewsList =
+        document.getElementById("reviewsList");
+
+    const reviewsAverage =
+        document.getElementById("reviewsAverage");
+
+    const reviewsStars =
+        document.getElementById("reviewsStars");
+
+    const reviewsCount =
+        document.getElementById("reviewsCount");
+
+    if (!reviewsList) {
+        return;
+    }
+
+    try {
+
+        const response =
+            await fetch(`/api/reviews/product/${productId}`);
+
+        if (!response.ok) {
+            throw new Error("Unable to load reviews.");
+        }
+
+        const reviews =
+            await response.json();
+
+
+        /* No reviews */
+
+        if (reviews.length === 0) {
+
+            reviewsAverage.textContent = "0.0";
+            reviewsStars.textContent = "☆☆☆☆☆";
+            reviewsCount.textContent = "0 reviews";
+
+            reviewsList.innerHTML = `
+                <p class="reviews-empty">
+                    No reviews yet. Be the first to review this pair.
+                </p>
+            `;
+
+            return;
+        }
+
+
+        /* Calculate average rating */
+
+        const totalRating =
+            reviews.reduce(
+                (sum, review) =>
+                    sum + Number(review.rating),
+                0
+            );
+
+        const averageRating =
+            totalRating / reviews.length;
+
+        reviewsAverage.textContent =
+            averageRating.toFixed(1);
+
+        reviewsStars.textContent =
+            createStars(Math.round(averageRating));
+
+        reviewsCount.textContent =
+            `${reviews.length} ${
+                reviews.length === 1
+                    ? "review"
+                    : "reviews"
+            }`;
+
+
+        /* Display reviews */
+
+        reviewsList.innerHTML =
+            reviews
+                .map(review => createReviewCard(review))
+                .join("");
+
+    } catch (error) {
+
+        console.error(
+            "Review loading error:",
+            error
+        );
+
+        reviewsList.innerHTML = `
+            <p class="reviews-empty">
+                Unable to load reviews right now.
+            </p>
+        `;
+    }
+}
+
+
+/* =====================================================
+   CREATE STAR DISPLAY
+   ===================================================== */
+
+function createStars(rating) {
+
+    let stars = "";
+
+    for (let i = 1; i <= 5; i++) {
+
+        stars +=
+            i <= rating
+                ? "★"
+                : "☆";
+    }
+
+    return stars;
+}
+
+
+/* =====================================================
+   CREATE REVIEW CARD
+   ===================================================== */
+
+function createReviewCard(review) {
+
+    const date =
+        review.createdAt
+            ? new Date(review.createdAt)
+                .toLocaleDateString("en-IN", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric"
+                })
+            : "";
+
+    return `
+        <article class="review-card">
+
+            <div class="review-card-header">
+
+                <div>
+
+                    <div class="review-customer-name">
+                        ${escapeHTML(review.customerName)}
+                    </div>
+
+                    <div class="review-date">
+                        ${date}
+                    </div>
+
+                </div>
+
+                <div class="review-card-stars">
+                    ${createStars(Number(review.rating))}
+                </div>
+
+            </div>
+
+            <p class="review-card-comment">
+                ${escapeHTML(review.comment)}
+            </p>
+
+        </article>
+    `;
+}
+
+    </script>
+
+</body>
+
+</html>
