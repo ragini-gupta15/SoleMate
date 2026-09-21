@@ -36,6 +36,11 @@ const heroProductCount = document.getElementById("heroProductCount");
 const heroProductImage = document.getElementById("heroProductImage");
 const clearFilters = document.getElementById("clearFilters");
 const searchButton = document.getElementById("searchButton");
+const newArrivalsGrid =
+    document.getElementById("newArrivalsGrid");
+
+const trendingGrid =
+    document.getElementById("trendingGrid");
 
 
 /* =========================================================
@@ -46,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
     loadProducts();
     updateCartUI();
     setupEventListeners();
+    setupMotionObserver();
 
     const urlParams = new URLSearchParams(window.location.search);
 
@@ -76,25 +82,221 @@ async function loadProducts() {
         }
 
         products = await response.json();
-
         setupCategoryFilter();
-        updateCollectionMeta();
-        setHeroImage();
-        displayProducts(products);
+        /* =========================================================
+   URL CATEGORY FILTER
+   ========================================================= */
 
-        /*
-         * Refresh cart UI after products are loaded.
-         * This allows older cart items to find their
-         * current image from the backend product list.
-         */
-        updateCartUI();
+function applyUrlCategoryFilter() {
+
+    if (!categoryFilter) {
+        return;
+    }
+
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
+
+    const requestedCategory =
+        params.get("category");
+
+    if (!requestedCategory) {
+        return;
+    }
+
+    const matchingOption =
+        [...categoryFilter.options]
+            .find(
+                option =>
+                    option.value.toLowerCase() ===
+                    requestedCategory.toLowerCase()
+            );
+
+    if (!matchingOption) {
+        return;
+    }
+
+    categoryFilter.value =
+        matchingOption.value;
+
+    applyFilters();
+}
+
+updateCollectionMeta();
+setHeroImage();
+displayProducts(products);
+applyUrlCategoryFilter();
+renderHomeProductSections();
+setupHomeCategoryImages();
+setupHomeMotion();
+setupMotionObserver();
+updateCartUI();
+
+
 
     } catch (error) {
         console.error("Product loading error:", error);
         showError();
     }
 }
+/* =========================================================
+   HOMEPAGE PRODUCT SECTIONS
+   ========================================================= */
 
+function renderHomeProductSections() {
+
+    if (!newArrivalsGrid && !trendingGrid) {
+        return;
+    }
+
+
+    /*
+     * Use featured products first.
+     */
+    let newArrivals =
+        products
+            .filter(product =>
+                product.featured === true
+            )
+            .slice(0, 4);
+
+
+    /*
+     * Fallback if fewer than four products
+     * are currently featured.
+     */
+    if (newArrivals.length < 4) {
+
+        newArrivals =
+            products.slice(0, 4);
+    }
+
+
+    /*
+     * Trending uses different products.
+     */
+    const newArrivalIds =
+        new Set(
+            newArrivals.map(product =>
+                Number(product.id)
+            )
+        );
+
+
+    const trending =
+        products
+            .filter(product =>
+                !newArrivalIds.has(
+                    Number(product.id)
+                )
+            )
+            .slice(0, 4);
+
+
+    if (newArrivalsGrid) {
+
+        newArrivalsGrid.innerHTML =
+            newArrivals
+                .map(product =>
+                    createHomeProductCard(product)
+                )
+                .join("");
+    }
+
+
+    if (trendingGrid) {
+
+        trendingGrid.innerHTML =
+            trending
+                .map(product =>
+                    createHomeProductCard(product)
+                )
+                .join("");
+    }
+}
+function createHomeProductCard(product) {
+
+    const image =
+        getProductImage(product);
+
+    return `
+        <article
+            class="home-v2-product-card"
+            onclick="openProduct(${product.id})"
+        >
+
+            <div class="home-v2-product-image">
+
+                <span class="home-v2-product-badge">
+                    ${product.featured ? "NEW" : product.category}
+                </span>
+
+                ${
+                    image
+                        ? `
+                            <img
+                                src="${escapeHTML(image)}"
+                                alt="${escapeHTML(
+                                    product.brand
+                                )} ${escapeHTML(
+                                    product.name
+                                )}"
+                                loading="lazy"
+                                onerror="handleImageError(this)"
+                            >
+                        `
+                        : ""
+                }
+
+
+                <button
+                    class="home-v2-quick-add"
+                    onclick="
+                        event.stopPropagation();
+                        addToCart(${product.id});
+                    "
+                    aria-label="Add ${escapeHTML(
+                        product.name
+                    )} to bag"
+                >
+                    +
+                </button>
+
+            </div>
+
+
+            <div class="home-v2-product-info">
+
+                <div class="home-v2-product-brand">
+                    ${escapeHTML(product.brand)}
+                </div>
+
+
+                <h3 class="home-v2-product-name">
+                    ${escapeHTML(product.name)}
+                </h3>
+
+
+                <div class="home-v2-product-bottom">
+
+                    <span class="home-v2-product-price">
+                        ₹${Number(
+                            product.price
+                        ).toLocaleString("en-IN")}
+                    </span>
+
+                    <span class="home-v2-product-category">
+                        ${escapeHTML(product.category)}
+                    </span>
+
+                </div>
+
+            </div>
+
+        </article>
+    `;
+}
 
 /* =========================================================
    PRODUCT IMAGE
@@ -212,6 +414,7 @@ function displayProducts(productList) {
     productGrid.innerHTML = productList
     .map((product, index) => createProductCard(product, index))
     .join("");
+    setupMotionObserver();
 
     if (collectionCount) {
 
@@ -223,7 +426,169 @@ function displayProducts(productList) {
             }`;
     }
 }
+/* =========================================================
+   SCROLL MOTION
+   ========================================================= */
 
+let motionObserver = null;
+
+function setupMotionObserver() {
+
+    if (!("IntersectionObserver" in window)) {
+        document
+            .querySelectorAll(
+                ".motion-reveal, .motion-reveal-soft, .motion-scale"
+            )
+            .forEach(element => {
+                element.classList.add("is-visible");
+            });
+
+        return;
+    }
+
+    if (motionObserver) {
+        motionObserver.disconnect();
+    }
+
+    motionObserver = new IntersectionObserver(
+        entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("is-visible");
+
+                    motionObserver.unobserve(
+                        entry.target
+                    );
+                }
+
+            });
+
+        },
+        {
+            threshold: 0.12,
+            rootMargin: "0px 0px -40px 0px"
+        }
+    );
+
+    document
+        .querySelectorAll(
+            ".motion-reveal, .motion-reveal-soft, .motion-scale"
+        )
+        .forEach(element => {
+
+            motionObserver.observe(element);
+
+        });
+}
+/* =========================================================
+   HOMEPAGE CATEGORY IMAGES
+   ========================================================= */
+
+function setupHomeCategoryImages() {
+
+    const categoryCards =
+        document.querySelectorAll(
+            ".home-category-card"
+        );
+
+    if (
+        !categoryCards.length ||
+        !products.length
+    ) {
+        return;
+    }
+
+
+    categoryCards.forEach(card => {
+
+        const category =
+            String(
+                card.dataset.category || ""
+            )
+                .trim()
+                .toLowerCase();
+
+
+        const image =
+            card.querySelector("img");
+
+
+        if (!image) {
+            return;
+        }
+
+
+        /*
+         * Find a product matching the
+         * category card.
+         */
+        let product =
+            products.find(item =>
+                String(
+                    item.category || ""
+                )
+                    .trim()
+                    .toLowerCase() ===
+                category
+            );
+
+
+        /*
+         * Fallback to the first product
+         * if no exact category exists.
+         */
+        if (!product) {
+            product = products[0];
+        }
+
+
+        if (!product) {
+            return;
+        }
+
+
+        const imageUrl =
+            getProductImage(product);
+
+
+        if (!imageUrl) {
+            return;
+        }
+
+
+        image.src = imageUrl;
+
+        image.alt =
+            `${product.brand || ""} ${product.name || ""}`
+                .trim();
+
+
+        /*
+         * If the selected image itself fails,
+         * fall back to the first product image.
+         */
+        image.onerror = function () {
+
+            const fallback =
+                products[0]
+                    ? getProductImage(products[0])
+                    : "";
+
+
+            if (
+                fallback &&
+                image.src !== fallback
+            ) {
+                image.src = fallback;
+            }
+
+        };
+
+    });
+}
 
 /* =========================================================
    PRODUCT CARD
@@ -250,7 +615,7 @@ function createProductCard(product, index)  {
 
     return `
         <article
-            class="product-card"
+            class="product-card motion-reveal"
             data-product-id="${product.id}"
             onclick="openProduct(${product.id})"
         >
@@ -868,22 +1233,31 @@ function setupEventListeners() {
 
 
     searchButton?.addEventListener(
-        "click",
-        () => {
+    "click",
+    () => {
 
-            document
-                .getElementById("shop")
-                ?.scrollIntoView({
-                    behavior: "smooth"
-                });
+        const shopSection =
+            document.getElementById("shop");
 
+        if (shopSection) {
+
+            shopSection.scrollIntoView({
+                behavior: "smooth"
+            });
 
             setTimeout(
                 () => searchInput?.focus(),
                 450
             );
+
+            return;
         }
-    );
+
+
+        window.location.href =
+            "/shop.html";
+    }
+);
 
 
     clearFilters?.addEventListener(
@@ -1082,4 +1456,120 @@ if (urlParams.get("cart") === "open") {
     setTimeout(() => {
         openCart();
     }, 100);
+}
+/* =========================================================
+   HOMEPAGE SCROLL ANIMATIONS
+   ========================================================= */
+
+function setupHomeMotion() {
+
+    const homeSections =
+        document.querySelectorAll(
+            ".home-v2-section, " +
+            ".home-v2-campaign, " +
+            ".home-v2-service-strip"
+        );
+
+
+    homeSections.forEach(section => {
+
+        section.classList.add(
+            "home-v2-reveal"
+        );
+
+    });
+
+
+    const productCards =
+        document.querySelectorAll(
+            ".home-v2-product-card"
+        );
+
+
+    productCards.forEach(card => {
+
+        card.classList.add(
+            "home-v2-reveal"
+        );
+
+    });
+
+
+    const categoryCards =
+        document.querySelectorAll(
+            ".home-v2-category-card"
+        );
+
+
+    categoryCards.forEach(card => {
+
+        card.classList.add(
+            "home-v2-reveal"
+        );
+
+    });
+
+
+    const elements =
+        document.querySelectorAll(
+            ".home-v2-reveal, " +
+            ".home-v2-reveal-scale"
+        );
+
+
+    if (!elements.length) {
+        return;
+    }
+
+
+    if (!("IntersectionObserver" in window)) {
+
+        elements.forEach(element => {
+
+            element.classList.add(
+                "is-visible"
+            );
+
+        });
+
+        return;
+    }
+
+
+    const observer =
+        new IntersectionObserver(
+            entries => {
+
+                entries.forEach(entry => {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target.classList.add(
+                            "is-visible"
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    }
+
+                });
+
+            },
+            {
+                threshold: 0.12,
+                rootMargin:
+                    "0px 0px -50px 0px"
+            }
+        );
+
+
+    elements.forEach(element => {
+
+        observer.observe(element);
+
+    });
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 
 import com.solemate.entity.Product;
 import com.solemate.repository.ProductRepository;
@@ -40,7 +41,7 @@ public class DataInitializer {
                     "Black / White",
                     "7,8,9,10,11",
                     18,
-                    "https://images.unsplash.com/photo-1786379582231-f4a593cacf2d?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/ultraboost/1.jpg",
                     "Built for runners who want a smooth and comfortable ride. The Ultraboost-inspired design combines a lightweight upper with a cushioned midsole for everyday training and long-distance comfort.",
                     true
                 ),
@@ -53,7 +54,7 @@ public class DataInitializer {
                     "White / Red",
                     "6,7,8,9,10,11",
                     31,
-                    "https://images.unsplash.com/photo-1584564515943-b54cbb61836b?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/air-force-1-07/1.jpg", 
                     "A timeless low-top sneaker with a clean silhouette and everyday versatility. The classic construction makes it easy to pair with casual outfits while providing dependable comfort throughout the day.",
                     true
                 ),
@@ -66,7 +67,7 @@ public class DataInitializer {
                     "White / Blue",
                     "7,8,9,10,11",
                     16,
-                    "https://images.unsplash.com/photo-1726312045271-63d746467b48?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/forum-low/1.jpg",
                     "Inspired by classic court style, the Forum Low brings a retro basketball aesthetic into a modern everyday sneaker. Its structured design and low-profile silhouette make it a versatile lifestyle choice.",
                     true
                 ),
@@ -79,7 +80,7 @@ public class DataInitializer {
                     "Grey / White",
                     "7,8,9,10,11",
                     21,
-                    "https://images.unsplash.com/photo-1687444365871-a2e06ff2295a?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/dunk-low-retro/1.jpg",
                     "A clean low-top sneaker inspired by classic basketball footwear. The layered upper, padded collar and low-profile construction make it suitable for everyday streetwear.",
                     false
                 ),
@@ -92,7 +93,7 @@ public class DataInitializer {
                     "Black / Red / White",
                     "7,8,9,10,11",
                     14,
-                    "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/air-jordan-1-low/1.jpg",
                     "A low-cut Jordan silhouette combining classic basketball styling with a streamlined everyday profile. The padded construction and flexible outsole provide comfort for casual wear.",
                     true
                 ),
@@ -105,7 +106,7 @@ public class DataInitializer {
                     "White / Black",
                     "8,9,10,11",
                     12,
-                    "https://images.unsplash.com/photo-1603631540004-d7b2616b2323?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/lebron-witness/1.jpg",
                     "Designed for explosive basketball movement, this performance-inspired shoe focuses on stability, cushioning and responsive support during quick changes of direction.",
                     false
                 ),
@@ -118,7 +119,7 @@ public class DataInitializer {
                     "Black / White",
                     "7,8,9,10,11",
                     20,
-                    "https://images.unsplash.com/photo-1786379582186-83ef57a1c420?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/metcon-9/1.jpg",
                     "A training-focused silhouette designed for gym sessions, strength workouts and high-intensity movement. The stable base and durable construction make it suitable for demanding training routines.",
                     true
                 ),
@@ -131,7 +132,7 @@ public class DataInitializer {
                     "Grey / Black",
                     "7,8,9,10,11",
                     17,
-                    "https://images.unsplash.com/photo-1642088338903-735e55b45c1a?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/nano-x4/1.jpg",
                     "A versatile training shoe designed for workouts that require stability and flexibility. Its athletic construction makes it suitable for strength training, conditioning and everyday gym sessions.",
                     false
                 ),
@@ -144,7 +145,7 @@ public class DataInitializer {
                     "Grey / White",
                     "7,8,9,10,11",
                     27,
-                    "https://images.unsplash.com/photo-1685273348445-70737e376cac?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/574-core/1.jpg",
                     "A classic lifestyle sneaker with a comfortable everyday profile. Its understated styling works well with casual outfits while the cushioned construction keeps everyday walking comfortable.",
                     false
                 ),
@@ -157,7 +158,7 @@ public class DataInitializer {
                     "Black / White",
                     "6,7,8,9,10,11",
                     34,
-                    "https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/old-skool/1.jpg",
                     "A classic skate-inspired low-top silhouette with a clean, recognizable profile. Designed for everyday casual wear, it combines a durable upper with a comfortable rubber outsole.",
                     false
                 ),
@@ -170,7 +171,7 @@ public class DataInitializer {
                     "Black / White",
                     "6,7,8,9,10,11",
                     22,
-                    "https://upload.wikimedia.org/wikipedia/commons/a/a5/Black_Converse_sneakers.JPG",
+                    "/images/products/chuck-70/1.jpg",
                     "A timeless canvas sneaker inspired by classic court footwear. Its simple silhouette makes it an easy everyday choice for casual outfits and streetwear looks.",
                     false
                 ),
@@ -183,7 +184,7 @@ public class DataInitializer {
                     "White / Blue",
                     "7,8,9,10,11",
                     11,
-                    "https://images.unsplash.com/photo-1779122873880-b2aa20d95e6c?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/gel-kayano-30/1.jpg",
                     "A stability-focused running silhouette designed for comfortable daily miles. The cushioned construction provides a supportive feel for runners who want a smooth and stable ride.",
                     true
                 ),
@@ -196,7 +197,7 @@ public class DataInitializer {
                     "White / Grey",
                     "7,8,9,10,11",
                     19,
-                    "https://images.unsplash.com/photo-1603631540004-d7b2616b2323?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/pegasus-41/1.jpg",
                     "A versatile running shoe designed for everyday training. Its lightweight profile and cushioned ride make it suitable for short runs, longer sessions and daily active use.",
                     true
                 ),
@@ -209,7 +210,7 @@ public class DataInitializer {
                     "Black / Grey",
                     "7,8,9,10,11",
                     15,
-                    "https://images.unsplash.com/photo-1552346154-21d32810aba3?auto=format&fit=crop&w=1200&q=90",
+                    "/images/products/574-sport/1.jpg",
                     "A modern sports-inspired sneaker combining a comfortable everyday fit with a contemporary athletic appearance. Designed for casual movement and active lifestyles.",
                     false
                 )
@@ -262,31 +263,59 @@ public class DataInitializer {
         };
     }
 
-    private Product createProduct(
-            String name,
-            String brand,
-            Double price,
-            String category,
-            String color,
-            String availableSizes,
-            Integer stock,
-            String imageUrl,
-            String description,
-            Boolean featured) {
+   private Product createProduct(
+        String name,
+        String brand,
+        Double price,
+        String category,
+        String color,
+        String availableSizes,
+        Integer stock,
+        String imageUrl,
+        String description,
+        Boolean featured) {
 
-        Product product = new Product(
-                name,
-                brand,
-                price,
-                category,
-                color,
-                availableSizes,
-                stock,
-                imageUrl,
-                description,
-                featured
+    String localImagePath =
+            "/images/products/"
+                    + createImageFolderName(name)
+                    + "/1.jpg";
+
+    String resolvedImageUrl = imageUrl;
+
+    try {
+        ClassPathResource imageResource =
+                new ClassPathResource(localImagePath.substring(1));
+
+        if (imageResource.exists()) {
+            resolvedImageUrl = localImagePath;
+        }
+    } catch (Exception e) {
+        System.out.println(
+                "Could not check local image for " + name
         );
-
-        return product;
     }
+
+    Product product = new Product(
+            name,
+            brand,
+            price,
+            category,
+            color,
+            availableSizes,
+            stock,
+            resolvedImageUrl,
+            description,
+            featured
+    );
+
+    return product;
+    
+}
+private String createImageFolderName(String productName) {
+
+    return productName
+            .toLowerCase()
+            .replaceAll("[^a-z0-9]+", "-")
+            .replaceAll("^-|-$", "");
+}
 }
