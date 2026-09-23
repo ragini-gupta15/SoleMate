@@ -437,6 +437,7 @@
     </main>
 
 
+    <script src="/js/notifications.js"></script>
     <script>
 
         /* =====================================================
@@ -540,9 +541,7 @@
 
             if (newQuantity > stock) {
 
-                alert(
-                    `Only ${stock} items are currently available.`
-                );
+                showToast(`Only ${stock} items are currently available.`, "error");
 
                 return;
             }

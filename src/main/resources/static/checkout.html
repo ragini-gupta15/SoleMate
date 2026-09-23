@@ -397,6 +397,7 @@
          JAVASCRIPT
          ===================================================== -->
 
+    <script src="/js/notifications.js"></script>
     <script>
 
         const API_URL = "/api/products";
@@ -593,7 +594,7 @@ document
 
         if (cart.length === 0) {
 
-            alert("Your cart is empty.");
+            showToast("Your Bag is empty.", "error");
 
             return;
 
@@ -706,9 +707,7 @@ cart.reduce(
             localStorage.removeItem("solemateCart");
 
 
-            alert(
-                `Order placed successfully! Order ID: ${savedOrder.id}`
-            );
+            
 
 
             window.location.href =
@@ -722,9 +721,10 @@ cart.reduce(
                 error
             );
 
-alert(
+showToast(
     error.message ||
-    "Something went wrong while placing your order. Please try again."
+    "Something went wrong while placing your order. Please try again.",
+    "error"
 );
         }
 
