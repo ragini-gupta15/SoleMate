@@ -1,7 +1,76 @@
-# SoleMate
+# SoleMate 👟
 
-A full-stack shoe shopping, inventory, and order management platform built with Java, Spring Boot, MySQL, and vanilla JavaScript.
+### Full-Stack Footwear E-Commerce & Order Management Platform
 
+SoleMate is a full-stack footwear e-commerce application built with **Java, Spring Boot, MySQL, HTML, CSS, and Vanilla JavaScript**.
+
+It provides a complete shopping workflow for customers and a management platform for administrators — from product discovery and bag management to checkout, inventory updates, order tracking, reviews, and administration.
+
+---
+
+## ✨ What SoleMate Does
+
+### 🛍️ Customer Experience
+- Browse a modern footwear catalogue
+- Search, filter, and sort products
+- View detailed product pages and image galleries
+- Select shoe sizes and quantities
+- Manage a persistent shopping Bag
+- Complete checkout
+- Place orders backed by MySQL
+- View previous orders
+- Track order status
+- Submit and view product reviews
+
+### ⚙️ Admin Management
+- Protected admin area
+- Dashboard statistics
+- Product CRUD operations
+- Inventory and stock management
+- Low-stock monitoring
+- Order management
+- Customer/order details
+- Order status updates
+
+### 🔐 Backend Reliability
+- RESTful Spring Boot APIs
+- Database-backed product pricing
+- Stock validation before order creation
+- Automatic stock deduction after successful orders
+- Order and OrderItem relationships
+- Input validation
+- Global exception handling
+- Validated order-status transitions
+
+---
+
+## 🏗️ Application Architecture
+
+```text
+                    SOLEMATE
+                       │
+             ┌─────────┴─────────┐
+             │                   │
+        Customer UI           Admin UI
+             │                   │
+             └─────────┬─────────┘
+                       │
+                 HTTP / JSON
+                       │
+                       ▼
+              Spring Boot REST API
+                       │
+             ┌─────────┴─────────┐
+             │                   │
+          Services          Validation
+             │                   │
+             └─────────┬─────────┘
+                       │
+                       ▼
+                Spring Data JPA
+                       │
+                       ▼
+                  MySQL Database
 ## Project Overview
 
 SoleMate is a modern footwear e-commerce application with two sides:
