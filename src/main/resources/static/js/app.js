@@ -1004,31 +1004,49 @@ function updateCartUI() {
 
     if (cart.length === 0) {
 
-        cartItems.innerHTML = `
-            <div class="cart-empty">
+    cartItems.innerHTML = `
+        <div class="cart-empty">
 
-                <div class="cart-empty-icon">
-                    ○
-                </div>
-
-                <h3>
-                    Your bag is empty
-                </h3>
-
-                <p>
-                    Add a pair and it will appear here.
-                </p>
-
+            <div class="cart-empty-mark">
+                S
             </div>
-        `;
 
-    } else {
+            <span class="cart-empty-eyebrow">
+                YOUR BAG
+            </span>
 
+            <h3>
+                Nothing here yet.
+            </h3>
+
+            <p>
+                Your next pair is waiting.
+                Explore the collection and find the one that fits you.
+            </p>
+
+            <a
+                href="/shop.html"
+                class="cart-empty-button"
+            >
+                Explore the collection
+                <span>→</span>
+            </a>
+
+        </div>
+    `;
+
+} else {
         cartItems.innerHTML = cart
             .map(item => createCartItem(item))
             .join("");
     }
+const cartFooter =
+    document.querySelector(".cart-footer");
 
+if (cartFooter) {
+    cartFooter.style.display =
+        cart.length === 0 ? "none" : "block";
+}
 
     const totalItems =
         cart.reduce(
